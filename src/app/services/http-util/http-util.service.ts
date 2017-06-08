@@ -14,9 +14,12 @@ const CustomHeaders = {
 export class HttpUtil {
 
 	_headers: Object;
+	apiUrl: string;
 
 	constructor() {
 		this._headers = CustomHeaders;
+		this.apiUrl = "http://digitalcook.info:8000/api";
+		// Deberia agregar tambien las rutas?
 	}
 
 	getHeaders() {

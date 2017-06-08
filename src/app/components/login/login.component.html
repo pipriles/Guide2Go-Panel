@@ -1,10 +1,10 @@
-<form (ngSubmit)="loginSubmit(loginForm)" #loginForm="ngForm">
+<form (ngSubmit)="loginSubmit()" #loginForm="ngForm">
 	<div class="login-group">
-		<md-input-container class="login-input">
-			<input [(ngModel)]="user.email" name="email" type="email" mdInput placeholder="Username">
+		<md-input-container class="login-input ng-invalid" [hideRequiredMarker]="true" >
+			<input [(ngModel)]="user.email" name="email" type="email" mdInput placeholder="Username" required />
 		</md-input-container>
 		<md-input-container class="login-input">
-			<input [(ngModel)]="user.password" name="password" type="password" mdInput placeholder="Password">
+			<input [(ngModel)]="user.password" name="password" type="password" mdInput placeholder="Password"/>
 		</md-input-container>
 	</div>
 	<button md-raised-button>Log in</button>

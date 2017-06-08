@@ -8,6 +8,7 @@ import {
 
 // Vendor
 import 'hammerjs';
+import 'materialize-css';
 
 import { CustomHttpModule } from './modules';
 import { AppRoutes, AppComponent } from './app.component';

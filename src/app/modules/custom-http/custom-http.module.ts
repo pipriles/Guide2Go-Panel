@@ -20,16 +20,14 @@ export function authHttpFactory(http: Http, opts: RequestOptions) {
 }
 
 @NgModule({
-	imports: [HttpModule],
+	imports: [ HttpModule ],
 	providers: [
-		Http, 
 		HttpUtil,
 		{
 			provide: AuthHttp,
 			useFactory: authHttpFactory,
 			deps: [Http, RequestOptions]
 		}
-	],
-	declarations: []
+	]
 })
 export class CustomHttpModule { }
