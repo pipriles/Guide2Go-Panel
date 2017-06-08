@@ -1,10 +1,10 @@
-<form>
+<form (ngSubmit)="loginSubmit(loginForm)" #loginForm="ngForm">
 	<div class="login-group">
 		<md-input-container class="login-input">
-			<input mdInput placeholder="Username">
+			<input [(ngModel)]="user.email" name="email" type="email" mdInput placeholder="Username">
 		</md-input-container>
 		<md-input-container class="login-input">
-			<input mdInput placeholder="Password">
+			<input [(ngModel)]="user.password" name="password" type="password" mdInput placeholder="Password">
 		</md-input-container>
 	</div>
 	<button md-raised-button>Log in</button>

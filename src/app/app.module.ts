@@ -9,6 +9,7 @@ import {
 // Vendor
 import 'hammerjs';
 
+import { CustomHttpModule } from './modules';
 import { AppRoutes, AppComponent } from './app.component';
 import { 
 	WelcomeComponent, 
@@ -25,6 +26,7 @@ import {
     BrowserModule,
 		FormsModule,
 		AppRoutes,
+		CustomHttpModule,
 
 		// Angular Material
 		MaterialModule,
