@@ -1,18 +1,52 @@
-.content {
-	display: flex;
-	height: 100%;
-	align-items: center;
-	justify-content: center;
+.title {
+	margin: 30px 0px 30px 30px;
 }
 
-a.title {
+.title > a {
 	font-size: 25pt;
 	color: #7f7f7f;
 	cursor: default;
 	transition: color 0.7s;
 }
 
-a:hover {
+.title > a:hover {
 	color: #0f0f0f;
 	cursor: default;
+}
+
+.zones-table {
+	width: 450px;
+	margin: 0 auto;
+}
+
+.zones-table md-input-container {
+	display: block;
+	margin: 0 auto;
+	width: 50%;
+}
+
+.zones-table ngx-datatable {
+	height: 100%;
+}
+
+.zones-table-row {
+	cursor: pointer;
+}
+
+@media (max-width: 720px) {
+	.zones-table {
+		width: 100%;
+		margin-left: 13.5px;
+		margin-right: 13.5px;
+	}
+	.zones-table ngx-datatable {
+		width: calc(100% - 27px);
+	}
+	.zones-table md-input-container {
+		width: calc(100% - 27px);
+		margin: 0;
+	}
+	.title {
+		margin: 30px 0px 30px 13.5px;
+	}
 }

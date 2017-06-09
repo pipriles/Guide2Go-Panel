@@ -1,14 +1,27 @@
 <app-panel>
-	<div class="content">
-		<a class="title"> 
+	<div class="title">
+		<a (click)="testZones()"> 
 			Zonas 
 		</a>
-		<!--
-		<ngx-datatable class="material"
-			[rows]="rows"
-			[columns]="cols">
-		</ngx-datatable>
-		-->
+	</div>
+
+	<div class="zones-table">
+		<md-input-container class="login-input ng-invalid" [hideRequiredMarker]="true" >
+			<input mdInput (keyup)="filterZones($event)" placeholder="Filtrar zonas" />
+		</md-input-container>			
+			<ngx-datatable
+				#table
+				class='material'
+				[rows]='rows'
+				[columns]="cols"
+				[columnMode]="'force'"
+				[headerHeight]="'flex'"
+				[footerHeight]="'flex'"
+				[limit]="9"
+				[rowHeight]="'auto'"
+				[selectionType]="'single'"
+				[rowClass]="getClasses">
+			</ngx-datatable>
 	</div>
 </app-panel>
 

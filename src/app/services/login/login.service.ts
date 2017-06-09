@@ -8,7 +8,10 @@ import { HttpUtil } from '../http-util/http-util.service';
 @Injectable()
 export class LoginService {
 
-	constructor(private http: Http, private httpUtil: HttpUtil) {}
+	constructor(
+		private http: Http,
+		private httpUtil: HttpUtil
+	) {}
 
 	/**
 	 * data.email
