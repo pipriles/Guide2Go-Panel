@@ -13,15 +13,23 @@ import 'materialize-css';
 import { CustomHttpModule } from './modules';
 import { AppRoutes, AppComponent } from './app.component';
 import { 
-	WelcomeComponent, 
-	LoginComponent 
+	LoginComponent,
+	PanelComponent,
+	HomeComponent,
+	ZonesComponent,
+	SubZonesComponent,
+	SpotsComponent
 } from './components';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
-    LoginComponent
+    LoginComponent,
+    PanelComponent,
+    HomeComponent,
+    ZonesComponent,
+    SubZonesComponent,
+    SpotsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +41,12 @@ import {
 		MaterialModule,
 		BrowserAnimationsModule
   ],
+	// Necesario?
+	entryComponents: [
+		AppComponent,
+		LoginComponent,
+		HomeComponent
+	],
   providers: [],
   bootstrap: [AppComponent]
 })

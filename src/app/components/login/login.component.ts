@@ -44,7 +44,7 @@ export class LoginComponent {
 		this.snackBar.open('Bienvenido!', '', {
 			duration: 1500
 		});
-		this.router.navigateByUrl('/welcome');
+		this.router.navigateByUrl('/home');
 	}
 
 	private handleError(err: Response) {

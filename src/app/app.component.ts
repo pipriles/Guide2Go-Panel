@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { 
-	WelcomeComponent, 
-	LoginComponent 
+	LoginComponent,
+	HomeComponent, 
+	ZonesComponent,
+	SubZonesComponent,
+	SpotsComponent
 } from './components';
 
 @Component({
@@ -14,11 +17,14 @@ export class AppComponent {}
 
 const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
+	{ path: 'home', component: HomeComponent },
+	{ path: 'zonas', component: ZonesComponent },
+	{ path: 'sub-zonas', component: SubZonesComponent },
+	{ path: 'paradas', component: SpotsComponent },
   { path: '',
-    redirectTo: '/login',
-    pathMatch: 'full'
+    redirectTo: '/login', pathMatch: 'full'
   },
-  { path: '**', component: WelcomeComponent }
+  { path: '**', redirectTo: '/home' }
 
 ];
 export const AppRoutes = RouterModule.forRoot(routes)

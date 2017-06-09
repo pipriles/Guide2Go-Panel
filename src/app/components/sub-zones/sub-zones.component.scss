@@ -1,0 +1,19 @@
+.content {
+	display: flex;
+	height: 100%;
+	align-items: center;
+	justify-content: center;
+}
+
+a.title {
+	font-size: 25pt;
+	font-family: monospace;
+	color: #7f7f7f;
+	cursor: default;
+	transition: color 0.7s;
+}
+
+a:hover {
+	color: #0f0f0f;
+	cursor: default;
+}

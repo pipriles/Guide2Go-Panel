@@ -1,0 +1,18 @@
+<md-sidenav-container class="container">
+
+	<md-sidenav mode="side" opened="true" #sidenav class="sidenav">
+
+		<md-nav-list>
+			<a *ngFor="let p of pages" [routerLink]="p.route" md-list-item>
+				{{ p.name }}
+			</a>
+			<md-divider></md-divider>
+			<a routerLink="/login" md-list-item>Cerrar Sesion</a>
+		</md-nav-list>
+
+	</md-sidenav>
+
+	<!-- Esto no esta en la documentacion -->
+	<ng-content></ng-content>
+
+</md-sidenav-container>
