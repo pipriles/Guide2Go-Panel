@@ -2,8 +2,23 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
 html, body {
 	height: 100vh;
 	padding: 0px;
 	margin: 0px;
+	background: #eee;
+
+  color: #212121;
+  font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+  text-align: left;
+  font-weight: 300;
+  line-height: 2rem;
+  letter-spacing: 0.01rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {
 	BrowserAnimationsModule 
 } from '@angular/platform-browser/animations';
@@ -39,7 +40,8 @@ import {
 
 		// Angular Material
 		MaterialModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		NgxDatatableModule
   ],
 	// Necesario?
 	entryComponents: [
