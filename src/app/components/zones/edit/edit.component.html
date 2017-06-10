@@ -1,0 +1,25 @@
+<form #editForm="ngForm">
+
+	<div class="login-group">
+		<md-input-container class="login-input ng-invalid" [hideRequiredMarker]="true" >
+			<input type="text" mdInput placeholder="Nombre" required />
+		</md-input-container>
+
+		<table cellspacing="0" style="width: 100%;">
+			<tr>
+				<td>
+					<md-input-container class="ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
+						<input type="text" mdInput placeholder="Latitud" required />
+					</md-input-container>
+				</td>
+				<td>
+					<md-input-container class="full-width ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
+						<input type="text" mdInput placeholder="Longitud" required />
+					</md-input-container>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+	<button md-raised-button>Crear Zona</button>
+</form>

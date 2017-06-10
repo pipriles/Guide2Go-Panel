@@ -1,14 +1,19 @@
 <app-panel>
+
 	<div class="title">
 		<a (click)="testZones()"> 
 			Zonas 
 		</a>
 	</div>
 
-	<div class="zones-table">
-		<md-input-container class="login-input ng-invalid" [hideRequiredMarker]="true" >
-			<input mdInput (keyup)="filterZones($event)" placeholder="Filtrar zonas" />
-		</md-input-container>			
+	<div class="grid-container">
+
+		<div class="opt-table">
+
+			<md-input-container class="login-input ng-invalid">
+				<input mdInput (keyup)="filterZones($event)" placeholder="Filtrar zonas" />
+			</md-input-container>			
+
 			<ngx-datatable
 				#table
 				class='material'
@@ -17,11 +22,16 @@
 				[columnMode]="'force'"
 				[headerHeight]="'flex'"
 				[footerHeight]="'flex'"
-				[limit]="9"
+				[limit]="10"
 				[rowHeight]="'auto'"
 				[selectionType]="'single'"
 				[rowClass]="getClasses">
 			</ngx-datatable>
+		</div>	
+
+		<app-zones-edit class="edit-form"> </app-zones-edit>
+
 	</div>
+
 </app-panel>
 

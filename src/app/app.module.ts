@@ -19,7 +19,8 @@ import {
 	HomeComponent,
 	ZonesComponent,
 	SubZonesComponent,
-	SpotsComponent
+	SpotsComponent,
+	ZonesEditComponent
 } from './components';
 
 @NgModule({
@@ -30,7 +31,8 @@ import {
     HomeComponent,
     ZonesComponent,
     SubZonesComponent,
-    SpotsComponent
+    SpotsComponent,
+    ZonesEditComponent
   ],
   imports: [
     BrowserModule,
