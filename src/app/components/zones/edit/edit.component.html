@@ -1,24 +1,37 @@
-<form #editForm="ngForm">
+<form (ngSubmit)="zoneSubmit()">
 
 	<div class="login-group">
 		<md-input-container class="login-input ng-invalid" [hideRequiredMarker]="true" >
-			<input type="text" mdInput placeholder="Nombre" required />
+			<input [(ngModel)]="zone.name" name="zone-name" type="text" mdInput placeholder="Nombre" required />
 		</md-input-container>
 
+		<!-- Despues pongo esto
 		<table cellspacing="0" style="width: 100%;">
 			<tr>
 				<td>
 					<md-input-container class="ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
-						<input type="text" mdInput placeholder="Latitud" required />
+						<input [(ngModel)]="lat" name="zone-lat" type="text" mdInput placeholder="Latitud" />
 					</md-input-container>
 				</td>
 				<td>
 					<md-input-container class="full-width ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
-						<input type="text" mdInput placeholder="Longitud" required />
+						<input [(ngModel)]="lng" name="zone-lng" type="text" mdInput placeholder="Longitud" />
 					</md-input-container>
 				</td>
 			</tr>
 		</table>
+		-->
+
+		<!-- Muy poco flexible :/
+		<agm-map customMap 
+			[drawing]="drawOpts" 
+			[latitude]="lat" 
+			[longitude]="lng" 
+			[streetViewControl]="false"> 
+		</agm-map>
+		-->
+
+		<div #map class="map-view"></div>
 
 	</div>
 	<button md-raised-button>Crear Zona</button>

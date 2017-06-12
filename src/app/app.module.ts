@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AgmCoreModule } from '@agm/core';
 import {
 	BrowserAnimationsModule 
 } from '@angular/platform-browser/animations';
@@ -43,7 +44,13 @@ import {
 		// Angular Material
 		MaterialModule,
 		BrowserAnimationsModule,
-		NgxDatatableModule
+		NgxDatatableModule,
+
+		AgmCoreModule.forRoot({
+			// Verificar de quien es esta llave
+			apiKey: 'AIzaSyB1-InqkExqKsUlO-Xd7EJ6_RV4CR4UWAc',
+			libraries: ['places', 'drawing']
+		})
   ],
 	// Necesario?
 	entryComponents: [

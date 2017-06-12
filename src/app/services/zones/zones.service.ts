@@ -35,7 +35,7 @@ export class ZonesService {
 		let opt = this.httpUtil.getOptions();
 
 		return this.authHttp.post(url, body, opt)
-			.map((resp: Response) => resp.json().data);
+			.map((resp: Response) => resp.json());
 	}
 
 }

@@ -13,14 +13,13 @@ export class ZonesComponent implements OnInit {
 
 	@ViewChild('table') table: DatatableComponent;
 
-	rows: any[];
-	cols: any[];
-	zones: any[];
-	cache: any[];
+	rows = [];
+	cols = [];
+	cache = [];
 	filterVal: string;
 
 	constructor(private zoneServ: ZonesService) {
-		this.cols = [{ prop: 'name' }];
+		this.cols = [{ name: 'Nombre', prop: 'name' }];
 		this.filterVal = '';
 	}
 
@@ -37,16 +36,12 @@ export class ZonesComponent implements OnInit {
 	}
 
 	initTable(zones: any[]) {
-		let cache = zones.map((zone) => {
-			return { name: zone.name }
-		});	
-		this.zones = zones;
-		this.cache = cache;
-		this.rows  = cache;
+		this.cache = zones;
+		this.rows  = zones;
 	}
 
 	testZones() {
-		console.log(this.zones);
+		console.log(this.rows);
 		console.log(this.cache);
 	}
 
@@ -58,5 +53,10 @@ export class ZonesComponent implements OnInit {
 
 		this.rows = matchs;
 		this.table.offset = 0;
+	}
+
+	handleUpload(zone)	{
+		// Actualiza las filas con la zona nueva
+		this.rows = [...this.rows, zone];
 	}
 }

@@ -1,5 +1,5 @@
 .title {
-	margin: 30px 0px 0px 30px;
+	margin: 30px 0px 0px 20px;
 	height: 38px;
 }
 
@@ -25,7 +25,7 @@
 
 .grid-container {
 	height: calc(100% - (38px + 20px + 38px);
-	margin: 10px 20px 38px 20px;
+	margin: 10px 15px 38px 15px;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -35,7 +35,7 @@
 }
 
 .opt-table {
-	width: 45%;
+	width: 48%;
 }
 
 .edit-form {
