@@ -14,10 +14,29 @@ form {
 	margin-bottom: 21px;
 }
 
-button {
-	width: 100%;
+.btn-group {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
 }
 
-.map-view {
-	height: 300px;
+#btn-cancel {
+	width: 49.5%;
+}
+
+#btn-submit {
+	width: 49.5%;
+}
+
+@media only screen and (max-width: 1230px) {
+	#btn-submit {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+	#btn-cancel {
+		width: 100%;
+	}
 }

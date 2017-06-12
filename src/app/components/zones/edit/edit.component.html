@@ -1,21 +1,46 @@
 <form (ngSubmit)="zoneSubmit()">
 
 	<div class="login-group">
-		<md-input-container class="login-input ng-invalid" [hideRequiredMarker]="true" >
-			<input [(ngModel)]="zone.name" name="zone-name" type="text" mdInput placeholder="Nombre" required />
+
+		<md-input-container 
+			class="login-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="_zone.name" 
+				name="zone-name" 
+				type="text" 
+				mdInput 
+				placeholder="Nombre" 
+				required />
 		</md-input-container>
 
 		<!-- Despues pongo esto
 		<table cellspacing="0" style="width: 100%;">
 			<tr>
 				<td>
-					<md-input-container class="ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
-						<input [(ngModel)]="lat" name="zone-lat" type="text" mdInput placeholder="Latitud" />
+					<md-input-container 
+						class="ng-invalid" 
+						style="width: 100%;" 
+						[hideRequiredMarker]="true" >
+						<input 
+							[(ngModel)]="lat" 
+							name="zone-lat" 
+							type="text" 
+							mdInput 
+							placeholder="Latitud" />
 					</md-input-container>
 				</td>
 				<td>
-					<md-input-container class="full-width ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
-						<input [(ngModel)]="lng" name="zone-lng" type="text" mdInput placeholder="Longitud" />
+					<md-input-container 
+						class="full-width ng-invalid" 
+						style="width: 100%;" 
+						[hideRequiredMarker]="true">
+						<input 
+							[(ngModel)]="lng" 
+							name="zone-lng" 
+							type="text" 
+							mdInput 
+							placeholder="Longitud" />
 					</md-input-container>
 				</td>
 			</tr>
@@ -31,8 +56,26 @@
 		</agm-map>
 		-->
 
-		<div #map class="map-view"></div>
+		<app-zones-map #map 
+			[polygon]="mapPolygon" 
+			(polygonComplete)="setPolygon($event)">
+		</app-zones-map>
 
 	</div>
-	<button md-raised-button>Crear Zona</button>
+
+	<div class="btn-group">
+		<button 
+			id="btn-submit" 
+			md-raised-button>
+			Modificar Zona
+		</button>
+		<button 
+	 		type="button"
+	 		id="btn-cancel" 
+			md-raised-button 
+			(click)="stopEdit()" >
+			Cancelar
+		</button>
+	</div>
+	
 </form>

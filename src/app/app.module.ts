@@ -18,25 +18,34 @@ import {
 	LoginComponent,
 	PanelComponent,
 	HomeComponent,
-	ZonesComponent,
+
+	// Esto se puede meter en un modulo
+	ZonesComponent, 
+	ZonesMapComponent,
+	ZonesAddComponent,
+	ZonesEditComponent,
+
 	SubZonesComponent,
-	SpotsComponent,
-	ZonesEditComponent
+	SpotsComponent
 } from './components';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    PanelComponent,
-    HomeComponent,
-    ZonesComponent,
-    SubZonesComponent,
-    SpotsComponent,
-    ZonesEditComponent
-  ],
-  imports: [
-    BrowserModule,
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		PanelComponent,
+		HomeComponent,
+
+		ZonesComponent,
+		ZonesMapComponent,
+		ZonesAddComponent,
+		ZonesEditComponent,
+
+		SubZonesComponent,
+		SpotsComponent
+	],
+	imports: [
+		BrowserModule,
 		FormsModule,
 		AppRoutes,
 		CustomHttpModule,
@@ -51,14 +60,14 @@ import {
 			apiKey: 'AIzaSyB1-InqkExqKsUlO-Xd7EJ6_RV4CR4UWAc',
 			libraries: ['places', 'drawing']
 		})
-  ],
+	],
 	// Necesario?
 	entryComponents: [
 		AppComponent,
 		LoginComponent,
 		HomeComponent
 	],
-  providers: [],
-  bootstrap: [AppComponent]
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

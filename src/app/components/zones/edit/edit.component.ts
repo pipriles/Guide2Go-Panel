@@ -1,11 +1,10 @@
 import { 
-	Component, ViewChild, ElementRef, OnInit, Output, EventEmitter
+	Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit
 } from '@angular/core';
 
-import { AgmMap, MapsAPILoader } from '@agm/core';
-import { ZonesService } from '../../../services';
-
 import {} from '@types/googlemaps';
+import { ZonesMapComponent } from '../map/map.component';
+import { ZonesService } from '../../../services';
 
 @Component({
 	selector: 'app-zones-edit',
@@ -14,92 +13,73 @@ import {} from '@types/googlemaps';
 })
 export class ZonesEditComponent implements OnInit {
 
-	@Output() zoneUploaded = new EventEmitter();
+	@Output('request') request = new EventEmitter();
+	@Output('cancel') cancel = new EventEmitter();
 
-	@ViewChild('map') mapRef: ElementRef;
-	map: any;
-	drawManager: any;
-	apiReady: Promise<void>;
-	lastDraw: google.maps.Polygon;
-	zone: any;
-
-	// Search parameters
-	lat: number;
-	lng: number;
+	@ViewChild('map') map: ZonesMapComponent;
+	_zone: any;
+	mapPolygon: any[];
 
 	constructor(
-		private zoneServ: ZonesService,
-		private _loader: MapsAPILoader) {
-		this.apiReady = this._loader.load();
-		this.zone = { name: '', polygon: [] };
+		private _ref: ElementRef,
+		private zoneServ: ZonesService) {
+		this._zone = { name: '', polygon: [] };
 	}
 
-	ngOnInit() {
-		this.apiReady.then(() => {
-			this._createMap();
-			this._setDrawingManager();
-			this._addEventsListener();
-		});
-	}
+	ngOnInit() {}
 
 	zoneSubmit() {
 
-		let body = this.zone;
-		if (body.name == '') 				 return;
+		let body = this._zone;
+		if (body.name == '')         return;
 		if (body.polygon.length < 1) return;
 
-		this.zoneServ.create(body)
-			.subscribe(
-				(res) => this.zoneUploaded.emit(res),
-				(err) => console.log(err)
-			);
+		console.log('Request body:', body);
+		this.request.emit();
 	}
 
-	private _createMap() {
-		this.map = new google.maps.Map(this.mapRef.nativeElement, {
-			center: {
-				lat: 15.397,
-				lng: 10.644
-			},
-			zoom: 2,
-			streetViewControl: false
+	setPolygon(polygon) {
+		this._zone.polygon = polygon;
+	}
+
+	@Input()
+	set zone(opt) {
+		if (opt === undefined) return;
+		let polygon = opt.poligono;
+		let mapPolygon = this.fixPolygonForMap(polygon);
+		let reqPolygon = this.fixPolygonForReq(polygon);
+		this._zone = {
+			name   : opt.name,
+			polygon: reqPolygon
+		};
+		this.mapPolygon = mapPolygon;
+	}
+
+	get zone() {
+		return this._zone;
+	}
+
+	fixPolygonForMap(polygon) {
+		let points = polygon.linestrings[0].points;
+		return points.map((p) => {
+			return { lat: p.lat, lng: p.lon };
 		});
 	}
 
-	private _setDrawingManager() {
-		this.drawManager = new google.maps.drawing.DrawingManager({
-			drawingControl: true,
-			drawingControlOptions: {
-				position: google.maps.ControlPosition.TOP_CENTER,
-				drawingModes: [
-					google.maps.drawing.OverlayType.POLYGON
-				]
-			}
+	private fixPolygonForReq(polygon) {
+		// Asume que si es un array el poligono
+		// esta bien
+		if (polygon instanceof Array)
+			return polygon;
+
+		// De lo contrario sera un Objeto
+		return polygon.linestrings[0].points.map((p) => {
+			return [p.lat, p.lon];
 		});
-		this.drawManager.setMap(this.map);
 	}
 
-	private _addEventsListener() {
-		google.maps.event.addListener(
-			this.drawManager, 
-			'polygoncomplete', 
-			(polygon: google.maps.Polygon) => {
-
-				if (this.lastDraw) this.lastDraw.setMap(null);
-				this.lastDraw = polygon;
-
-				let result = [];
-				let points = polygon.getPath().getArray()
-				if (points.length <= 0) return;
-
-				for(let i=0; i < points.length + 1; i++) {
-					let p = points[i % points.length];
-					result.push([p.lat(), p.lng()]);
-				}
-
-				this.zone.polygon = result;
-			}
-		);
+	stopEdit() {
+		this.cancel.emit();
 	}
 
 }
