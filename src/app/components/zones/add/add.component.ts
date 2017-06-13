@@ -14,7 +14,7 @@ export class ZonesAddComponent implements OnInit {
 
 	zone: any;
 
-	constructor(private zoneServ: ZonesService) {
+	constructor(private _serv: ZonesService) {
 		this.zone = { name: '', polygon: [] };
 	}
 
@@ -26,7 +26,7 @@ export class ZonesAddComponent implements OnInit {
 		if (body.name == '') 				 return;
 		if (body.polygon.length < 1) return;
 
-		this.zoneServ.create(body)
+		this._serv.create(body)
 			.subscribe(
 				(res) => this.zoneUploaded.emit(res),
 				(err) => console.log(err)

@@ -1,0 +1,100 @@
+<form (ngSubmit)="editSubZone()">
+
+	<div class="form-group">
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				mdInput 
+				[(ngModel)]="data.name" 
+				name="zone-name" 
+				type="text" 
+				placeholder="Nombre" 
+				required />
+		</md-input-container>
+
+		<md-select 
+			class="form-input" 
+			placeholder="Zona" 
+			[ngModel]="data.zone" 
+	 		(ngModelChange)="changeZone($event)"
+			name="zone-name">
+
+			<md-option 
+				*ngFor="let zone of zones" 
+				[value]="zone"> 
+				{{ zone.name }}
+			</md-option>
+
+		</md-select>
+
+		<!-- Despues pongo esto
+		<table 
+			cellspacing="0" 
+			style="width: 100%;">
+			<tr>
+				<td>
+					<md-input-container 
+						class="ng-invalid" 
+						style="width: 100%;" 
+						[hideRequiredMarker]="true" >
+						<input 
+							[(ngModel)]="lat" 
+							name="zone-lat" 
+							type="text" 
+							mdInput 
+							placeholder="Latitud" />
+					</md-input-container>
+				</td>
+				<td>
+					<md-input-container 
+						class="full-width ng-invalid" 
+						style="width: 100%;" 
+						[hideRequiredMarker]="true">
+						<input 
+							[(ngModel)]="lng" 
+							name="zone-lng" 
+							type="text" 
+							mdInput 
+							placeholder="Longitud" />
+					</md-input-container>
+				</td>
+			</tr>
+		</table>
+		-->
+
+		<!-- Muy poco flexible :/
+		<agm-map customMap 
+			[drawing]="drawOpts" 
+			[latitude]="lat" 
+			[longitude]="lng" 
+			[streetViewControl]="false"> 
+		</agm-map>
+		-->
+
+		<app-sub-zones-map #map 
+			[polygon]="mapSubZone" 
+			[fixedPolygon]="mapZone"
+			(polygonComplete)="setPolygon($event)">
+		</app-sub-zones-map>
+
+	</div>
+
+	<div class="btn-group">
+		<button 
+			md-raised-button
+			id="btn-submit">
+			Modificar Zona
+		</button>
+		<button 
+			md-raised-button 
+	 		type="button"
+	 		id="btn-cancel" 
+			(click)="stopEdit()">
+			Cancelar
+		</button>
+	</div>
+	
+</form>
+

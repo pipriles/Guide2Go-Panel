@@ -6,20 +6,16 @@ import { Observable } from 'rxjs';
 import { HttpUtil } from '../http-util/http-util.service';
 
 @Injectable()
-export class ZonesService {
+export class SubZonesService {
 
 	apiRoute: string;
 
 	constructor(
 		private authHttp: AuthHttp,
 		private httpUtil: HttpUtil) {
-		this.apiRoute = `${this.httpUtil.apiUrl}/zona`;
+		this.apiRoute = `${this.httpUtil.apiUrl}/sub_zone`;
 	}
 
-	/**
-	 * Se trae ese poco e' zonas
-	 * del servidor
-	 */
 	get() {
 		let url = this.apiRoute;
 		let opt = this.httpUtil.getOptions();
@@ -41,7 +37,7 @@ export class ZonesService {
 		let opt = this.httpUtil.getOptions();
 
 		return this.authHttp.patch(url, body, opt)
-			.map((resp: Response) => resp.json());	
+			.map((resp: Response) => resp.json());
 	}
 
 }

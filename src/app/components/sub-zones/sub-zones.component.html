@@ -1,8 +1,56 @@
 <app-panel>
-	<div class="content">
-		<a class="title"> 
+	<div class="title">
+		<a (click)="testZones()"> 
 			Sub Zonas 
 		</a>
 	</div>
+	
+	<div class="grid-container">
+
+		<div class="opt-table">
+
+			<md-input-container 
+				class="login-input ng-invalid">
+				<input mdInput 
+					(keyup)="filterZones($event)" 
+					placeholder="Filtrar zonas" />
+			</md-input-container>			
+
+			<ngx-datatable
+				#table
+				class='material'
+		 		(select)="selectZone($event)"
+				[rows]='rows'
+				[columns]="cols"
+				[columnMode]="'force'"
+				[headerHeight]="'flex'"
+				[footerHeight]="'flex'"
+				[limit]="10"
+				[rowHeight]="'auto'"
+				[selectionType]="'single'"
+				[rowClass]="getClasses">
+			</ngx-datatable>
+		</div>	
+
+		<!-- Toggle Only Visibility!!! -->
+		
+		<app-sub-zones-add 
+		 	class="edit-form"
+			*ngIf="!isSelected()"
+			[zones]="zones"
+			(request)="handleAdd($event)">
+		</app-sub-zones-add>
+
+		<app-sub-zones-edit 
+		 	class="edit-form"
+			*ngIf="isSelected()"
+			[zone]="selection"
+		
+			(request)="handleEdit($event)"
+			(cancel)="clearSelection()">
+		</app-sub-zones-edit>
+
+	</div>
+
 </app-panel>
 

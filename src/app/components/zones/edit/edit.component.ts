@@ -13,16 +13,17 @@ import { ZonesService } from '../../../services';
 })
 export class ZonesEditComponent implements OnInit {
 
+	@Output('cancel')  cancel  = new EventEmitter();
 	@Output('request') request = new EventEmitter();
-	@Output('cancel') cancel = new EventEmitter();
 
 	@ViewChild('map') map: ZonesMapComponent;
+	_id: number;
 	_zone: any;
 	mapPolygon: any[];
 
 	constructor(
 		private _ref: ElementRef,
-		private zoneServ: ZonesService) {
+		private _serv: ZonesService) {
 		this._zone = { name: '', polygon: [] };
 	}
 
@@ -35,7 +36,11 @@ export class ZonesEditComponent implements OnInit {
 		if (body.polygon.length < 1) return;
 
 		console.log('Request body:', body);
-		this.request.emit();
+		this._serv.update(this._id, body)
+			.subscribe(
+				(res) => this.request.emit(res),
+				(err) => console.log(err)
+			);
 	}
 
 	setPolygon(polygon) {
@@ -45,14 +50,17 @@ export class ZonesEditComponent implements OnInit {
 	@Input()
 	set zone(opt) {
 		if (opt === undefined) return;
+
 		let polygon = opt.poligono;
 		let mapPolygon = this.fixPolygonForMap(polygon);
 		let reqPolygon = this.fixPolygonForReq(polygon);
+
+		this.mapPolygon = mapPolygon;
+		this._id = opt.id;
 		this._zone = {
 			name   : opt.name,
 			polygon: reqPolygon
 		};
-		this.mapPolygon = mapPolygon;
 	}
 
 	get zone() {
@@ -66,7 +74,7 @@ export class ZonesEditComponent implements OnInit {
 		});
 	}
 
-	private fixPolygonForReq(polygon) {
+	fixPolygonForReq(polygon) {
 		// Asume que si es un array el poligono
 		// esta bien
 		if (polygon instanceof Array)

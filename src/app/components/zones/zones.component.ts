@@ -17,12 +17,10 @@ export class ZonesComponent implements OnInit {
 	rows  = [];
 	cols  = [];
 	cache = [];
-	filterVal: string;
 	selection: any;
 
 	constructor(private zoneServ: ZonesService) {
 		this.cols = [{ name: 'Nombre', prop: 'name' }];
-		this.filterVal = '';
 	}
 
 	ngOnInit() {
@@ -63,7 +61,10 @@ export class ZonesComponent implements OnInit {
 	}
 
 	handleEdit(zone) {
-		console.log('Edited!');
+		console.log(zone);
+		console.log(this.selection);
+		this.selection.name = zone.name;
+		this.selection.poligono = zone.poligono;
 	}
 
 	isSelected() {

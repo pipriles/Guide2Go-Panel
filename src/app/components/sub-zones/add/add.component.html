@@ -1,0 +1,69 @@
+<form (ngSubmit)="addSubZone()">
+
+	<div class="form-group">
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="data.name" 
+				name="sub-zone-name" 
+				type="text" 
+				mdInput 
+				placeholder="Nombre" 
+				required />
+		</md-input-container>
+
+		<md-select 
+			class="form-input" 
+			placeholder="Zona" 
+			[ngModel]="data.zone" 
+	 		(ngModelChange)="changeZone($event)"
+			name="zone-name">
+
+			<md-option 
+				*ngFor="let zone of zones" 
+				[value]="zone"> 
+				{{ zone.name }}
+			</md-option>
+
+		</md-select>
+
+		<!-- Despues pongo esto
+		<table cellspacing="0" style="width: 100%;">
+			<tr>
+				<td>
+					<md-input-container class="ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
+						<input [(ngModel)]="lat" name="zone-lat" type="text" mdInput placeholder="Latitud" />
+					</md-input-container>
+				</td>
+				<td>
+					<md-input-container class="full-width ng-invalid" style="width: 100%;" [hideRequiredMarker]="true" >
+						<input [(ngModel)]="lng" name="zone-lng" type="text" mdInput placeholder="Longitud" />
+					</md-input-container>
+				</td>
+			</tr>
+		</table>
+		-->
+
+		<!-- Muy poco flexible :/
+		<agm-map customMap 
+			[drawing]="drawOpts" 
+			[latitude]="lat" 
+			[longitude]="lng" 
+			[streetViewControl]="false"> 
+		</agm-map>
+		-->
+
+		<app-sub-zones-map 
+			#map
+			[lat]="lat"
+			[lng]="lng"
+			[fixedPolygon]="parentPolygon"
+			(polygonComplete)="setPolygon($event)" >
+		</app-sub-zones-map>
+
+	</div>
+	<button md-raised-button>Crear Zona</button>
+</form>
+

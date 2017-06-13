@@ -26,6 +26,10 @@ import {
 	ZonesEditComponent,
 
 	SubZonesComponent,
+	SubZonesMapComponent,
+	SubZonesAddComponent,
+	SubZonesEditComponent,
+
 	SpotsComponent
 } from './components';
 
@@ -42,6 +46,10 @@ import {
 		ZonesEditComponent,
 
 		SubZonesComponent,
+		SubZonesMapComponent,
+		SubZonesAddComponent,
+		SubZonesEditComponent,
+
 		SpotsComponent
 	],
 	imports: [

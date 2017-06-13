@@ -6,15 +6,11 @@ import { MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 
 @Component({
-	selector: 'app-zones-map',
+	selector: 'app-sub-zones-map',
 	templateUrl: './map.component.html',
 	styleUrls: ['./map.component.scss']
 })
-export class ZonesMapComponent implements OnInit {
-
-	@Input() lat: number;
-	@Input() lng: number;
-	@Input() zoom: number;
+export class SubZonesMapComponent implements OnInit {
 
 	@Output('polygonComplete') 
 	doneDrawing = new EventEmitter();
@@ -25,21 +21,23 @@ export class ZonesMapComponent implements OnInit {
 	map: google.maps.Map;
 	drawManager: google.maps.drawing.DrawingManager;
 	lastDraw: google.maps.Polygon;
+	lastFixed: google.maps.Polygon;
 	apiReady: Promise<void>;
 	mapReady: Promise<void>;
 	mapResolve: () => void;
 
+	_lat: number;
+	_lng: number;
+	_zoom: number;
+
 	constructor(private _loader: MapsAPILoader) {
 		this.apiReady = this._loader.load();
 		this.mapReady = new Promise<void>((resolve) => {
-			this.mapResolve = resolve
+			this.mapResolve = resolve;
 		});
 	}
 
 	ngOnInit() {
-		if (this.lat  == null) this.lat = 0.0;
-		if (this.lng  == null) this.lng = 0.0;
-		if (this.zoom == null) this.zoom = 2;
 		this.apiReady.then(() => {
 			this._createMap();
 			this._setDrawingManager();
@@ -52,10 +50,10 @@ export class ZonesMapComponent implements OnInit {
 		let elem = this.mapRef.nativeElement;
 		this.map = new google.maps.Map(elem, {
 			center: {
-				lat: this.lat,
-				lng: this.lng
+				lat: 0.0,
+				lng: 0.0
 			},
-			zoom: this.zoom,
+			zoom: 1,
 			streetViewControl: false
 		});
 		this.mapResolve();
@@ -111,14 +109,96 @@ export class ZonesMapComponent implements OnInit {
 			this.clearDraw();
 			this.lastDraw = new google.maps.Polygon({
 				paths: points,
+				strokeColor: '#0000FF',
+				strokeOpacity: 0.8,
+				strokeWeight: 2,
+				fillColor: '#0000FF',
+				fillOpacity: 0.35,
+				zIndex: 1
+			});
+			this.lastDraw.setMap(this.map);
+			console.log('CREATED POLYGON');
+		});
+	}
+
+	@Input()
+	set fixedPolygon(points) {
+		if (points === undefined) return;
+		this.mapReady.then(() => {
+			this.clearFixed();
+			this.lastFixed = new google.maps.Polygon({
+				paths: points,
 				strokeColor: '#000000',
 				strokeOpacity: 0.8,
 				strokeWeight: 2,
 				fillColor: '#000000',
-				fillOpacity: 0.35
+				fillOpacity: 0.35,
+				zIndex: 0
 			});
-			this.lastDraw.setMap(this.map);
+			this.lastFixed.setMap(this.map);
 			console.log('CREATED POLYGON');
+		});
+	}
+
+	@Input()
+	set lat(val: number) {
+		this._lat = val;
+		this.setCenter();
+	}
+
+	get lat() {
+		return this._lat;
+	}
+
+	@Input()
+	set lng(val: number) {
+		this._lng = val;
+		this.setCenter();
+	}
+
+	get lng() {
+		return this._lng;
+	}
+
+	@Input() 
+	set zoom(val: number) {
+		this._zoom = val;
+		this.setZoom();
+	}
+
+	get zoom() {
+		return this._zoom;
+	}
+
+	fitPolygonBounds(points: any[]) {
+		this.mapReady.then(() => {
+			let bounds = this.getPolygonBounds(points);
+			this.map.fitBounds(bounds);
+			this.map.setCenter(bounds.getCenter());
+		});
+	}
+
+	getPolygonBounds(points: any[]) {
+		let bounds = new google.maps.LatLngBounds();
+		points.forEach((p) => bounds.extend(p));
+		return bounds;
+	}
+
+	setZoom() {
+		this.mapReady.then(() => {
+			this.map.setZoom(this.zoom)
+		});
+	}
+
+	setCenter() {
+		console.log(this._lat, this._lng);
+		if (this._lat === undefined) return;
+		if (this._lng === undefined) return;
+		this.mapReady.then(() => {
+			this.map.setCenter({
+				lat: this._lat,
+				lng: this._lng
+			});
 		});
 	}
 
@@ -129,4 +209,10 @@ export class ZonesMapComponent implements OnInit {
 		}
 	}
 
+	clearFixed() {
+		if (this.lastFixed !== undefined) {
+			this.lastFixed.setMap(null);
+			this.lastFixed = undefined;
+		}
+	}
 }

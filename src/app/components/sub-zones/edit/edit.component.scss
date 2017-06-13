@@ -1,0 +1,43 @@
+form {
+	padding: 2em;
+	background: #fff;
+	border: 1px solid #ebebeb;
+	box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px, rgba(0,0,0,0.09804) 0px 1px 2px 0px;
+}
+
+.form-input {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.form-group {
+	margin-bottom: 21px;
+}
+
+.btn-group {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+}
+
+#btn-cancel {
+	width: 49.5%;
+}
+
+#btn-submit {
+	width: 49.5%;
+}
+
+@media only screen and (max-width: 1230px) {
+	#btn-submit {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+	#btn-cancel {
+		width: 100%;
+	}
+}
+
