@@ -18,6 +18,7 @@ import {
 	LoginComponent,
 	PanelComponent,
 	HomeComponent,
+	MapComponent,
 
 	// Esto se puede meter en un modulo
 	ZonesComponent, 
@@ -32,6 +33,8 @@ import {
 
 	SpotsComponent
 } from './components';
+import { AddComponent } from './components/spots/add/add.component';
+import { EditComponent } from './components/spots/edit/edit.component';
 
 @NgModule({
 	declarations: [
@@ -39,6 +42,7 @@ import {
 		LoginComponent,
 		PanelComponent,
 		HomeComponent,
+		MapComponent,
 
 		ZonesComponent,
 		ZonesMapComponent,
@@ -50,7 +54,12 @@ import {
 		SubZonesAddComponent,
 		SubZonesEditComponent,
 
-		SpotsComponent
+		SpotsComponent,
+
+		AddComponent,
+
+		EditComponent
+
 	],
 	imports: [
 		BrowserModule,

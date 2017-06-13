@@ -1,6 +1,7 @@
 export * from './login/login.component';
 export * from './panel/panel.component';
 export * from './home/home.component';
+export * from './map/map.component';
 
 export * from './zones/map/map.component'
 export * from './zones/add/add.component';
