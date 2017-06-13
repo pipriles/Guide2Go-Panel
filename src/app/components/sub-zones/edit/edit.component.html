@@ -8,7 +8,7 @@
 			<input 
 				mdInput 
 				[(ngModel)]="data.name" 
-				name="zone-name" 
+				name="sub-zone-name" 
 				type="text" 
 				placeholder="Nombre" 
 				required />
@@ -23,7 +23,7 @@
 
 			<md-option 
 				*ngFor="let zone of zones" 
-				[value]="zone"> 
+				[value]="zone.id"> 
 				{{ zone.name }}
 			</md-option>
 
@@ -74,8 +74,8 @@
 		-->
 
 		<app-sub-zones-map #map 
-			[polygon]="mapSubZone" 
-			[fixedPolygon]="mapZone"
+			[polygon]="childPolygon" 
+			[fixedPolygon]="parentPolygon"
 			(polygonComplete)="setPolygon($event)">
 		</app-sub-zones-map>
 

@@ -21,8 +21,8 @@ export class SubZonesEditComponent implements OnInit {
 	@Input() zones: any[];
 
 	data: any;
-	mapZone: any[];
-	mapSubZone: any[];
+	parentPolygon: any[];
+	childPolygon: any[];
 
 	constructor(private _serv: SubZonesService) {
 		this.zones = [];
@@ -43,21 +43,19 @@ export class SubZonesEditComponent implements OnInit {
 		if (data.zone === undefined) return;
 		if (data.polygon.length < 1) return;
 		
-		console.log(this.data);
-
 		let id = this.data.id;
 		let body = {
-			name: this.data.nombre,
-			zone: this.data.zone.id,
+			name: this.data.name,
+			zone: this.data.zone,
 			polygon: this.data.polygon
 		};
 		
-		console.log('Request body:', body);
+		console.log('Request body:', id, body);
 
 		/* Modifica la sub zona */
 		this._serv.update(id, body)
 			.subscribe(
-				(res) => this.request.emit(),
+				(res) => this.request.emit(res),
 				(err) => console.log(err)
 			);
 	}
@@ -69,21 +67,30 @@ export class SubZonesEditComponent implements OnInit {
 	@Input()
 	set zone(opt) {
 		if (opt === undefined) return;
-		let  zonePolygon = this.fixPolygonForMap(opt.zona.poligono);
-		let sZonePolygon = this.fixPolygonForMap(opt.poligono);
+		let parentPolygon = this.fixPolygonForMap(opt.zona.poligono);
+		let childPolygon = this.fixPolygonForMap(opt.poligono);
 
-		this.map.fitPolygonBounds(sZonePolygon);
-		this.mapSubZone = sZonePolygon;
-		this.mapZone = zonePolygon
+		this.map.fitPolygonBounds(childPolygon);
+		this.childPolygon = childPolygon;
+		this.parentPolygon = parentPolygon
 		this.data = {
 			id: opt.id,
 			name: opt.nombre, // Por que nombre? :(
+			zone: opt.zona.id,
 			polygon: this.fixPolygonForReq(opt.poligono)
 		};
 	}
 
 	get zone() {
 		return this.data;
+	}
+
+	changeZone(zone: number) {
+		let result = this.zones.find((elem) => elem.id === zone);
+		let polygon = this.fixPolygonForMap(result.poligono);
+
+		this.data.zone = result.id;
+		this.parentPolygon = polygon;
 	}
 
 	// Se puede mover esto a un servicio

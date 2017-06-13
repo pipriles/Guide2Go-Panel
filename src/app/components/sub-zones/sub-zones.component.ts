@@ -79,7 +79,11 @@ export class SubZonesComponent {
 	}
 
 	handleEdit(zone) {
-		console.log('Edited!');
+		console.log('Edited!', zone);
+		this.selection.nombre = zone.nombre;
+		this.selection.zonas_id = zone.zonas_id;
+		this.selection.poligono = zone.poligono;
+		this.fetchSubZones();
 	}
 
 	isSelected() {
