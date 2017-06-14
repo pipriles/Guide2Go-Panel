@@ -61,7 +61,7 @@ export class SpotsComponent implements OnInit {
 		console.log(this.cache);
 	}
 
-	filterZones(event: KeyboardEvent) {
+	filterSpots(event: KeyboardEvent) {
 		let filter = (<HTMLInputElement>event.target).value.toLowerCase();
 		let matchs = this.cache.filter((zone) => {
 			return zone.nombre.toLowerCase().indexOf(filter) !== -1 || !filter;
