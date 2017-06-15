@@ -15,12 +15,19 @@ export class MapComponent implements OnInit {
 	@Output('polygonComplete') 
 	doneDrawing = new EventEmitter();
 
+	@Output('markerComplete')
+	doneMarking = new EventEmitter();
+
+	@Input()
+	mode: string;
+
 	@ViewChild('map') 
 	mapRef: ElementRef;
 
 	map: google.maps.Map;
 	drawManager: google.maps.drawing.DrawingManager;
-	lastDraw: google.maps.Polygon;
+	lastMark: google.maps.Marker;
+	lastPoly: google.maps.Polygon;
 	lastFixed: google.maps.Polygon;
 	apiReady: Promise<void>;
 	mapReady: Promise<void>;
@@ -41,7 +48,6 @@ export class MapComponent implements OnInit {
 			this._createMap();
 			this._setDrawingManager();
 			this._addEventsListener();
-			this.mapResolve();
 		});
 	}
 
@@ -64,9 +70,7 @@ export class MapComponent implements OnInit {
 			drawingControl: true,
 			drawingControlOptions: {
 				position: google.maps.ControlPosition.TOP_CENTER,
-				drawingModes: [
-					google.maps.drawing.OverlayType.POLYGON
-				]
+				drawingModes: [ this._drawingMode() ]
 			},
 			polygonOptions: {
 				draggable: true,
@@ -75,20 +79,36 @@ export class MapComponent implements OnInit {
 				strokeWeight: 2,
 				fillColor: '#0000FF',
 				fillOpacity: 0.35,
-				zIndex: 1
-			}
+				zIndex: 1,
+			},
+			markerOptions: {
+				animation: google.maps.Animation.DROP,
+				draggable: true,
+				position: undefined
+			},
+			map: this.map
 		});
-		this.drawManager.setMap(this.map);
+	}
+
+	private _drawingMode() : google.maps.drawing.OverlayType {
+		return (this.mode === 'marker')
+			? google.maps.drawing.OverlayType.MARKER
+			: google.maps.drawing.OverlayType.POLYGON;
 	}
 
 	private _addEventsListener() {
+		this._polygonEvent();
+		this._markerEvent();
+	}
+
+	private _polygonEvent() {
 		google.maps.event.addListener(
 			this.drawManager, 
 			'polygoncomplete', 
 			(polygon: google.maps.Polygon) => {
 
-				this.clearDraw();
-				this.lastDraw = polygon;
+				this.clearOverlay(this.lastPoly);
+				this.lastPoly = polygon;
 
 				let result = [];
 				let points = polygon.getPath().getArray()
@@ -102,6 +122,26 @@ export class MapComponent implements OnInit {
 				this.doneDrawing.emit(result);
 			}
 		);
+
+	}
+
+	private _markerEvent() {
+		google.maps.event.addListener(
+			this.drawManager, 
+			'markercomplete', 
+			(marker: google.maps.Marker) => {
+
+				console.log(this.lastMark);
+				this.clearOverlay(this.lastMark);
+				this.lastMark = marker;
+
+				let point = marker.getPosition();
+				let coord = [point.lat(), point.lng()];
+				this.doneMarking.emit(coord);
+
+				return coord;
+			}
+		);
 	}
 
 	public triggerResize() {
@@ -111,21 +151,34 @@ export class MapComponent implements OnInit {
 	}
 
 	@Input()
+	set marker(point) {
+		if (point === undefined) return;
+		this.mapReady.then(() => {
+			this.clearOverlay(this.lastMark);
+			this.lastMark = new google.maps.Marker({
+				position: point,
+				animation: google.maps.Animation.DROP,
+				map: this.map
+			});
+		});
+	}
+
+	@Input()
 	set polygon(points) {
 		if (points === undefined) return;
 		this.mapReady.then(() => {
-			this.clearDraw();
-			this.lastDraw = new google.maps.Polygon({
+			console.log('CREATED POLYGON');
+			this.clearOverlay(this.lastPoly);
+			this.lastPoly = new google.maps.Polygon({
 				paths: points,
 				strokeColor: '#0000FF',
 				strokeOpacity: 0.8,
 				strokeWeight: 2,
 				fillColor: '#0000FF',
 				fillOpacity: 0.35,
-				zIndex: 1
+				zIndex: 1,
+				map: this.map
 			});
-			this.lastDraw.setMap(this.map);
-			console.log('CREATED POLYGON');
 		});
 	}
 
@@ -133,7 +186,8 @@ export class MapComponent implements OnInit {
 	set fixedPolygon(points) {
 		if (points === undefined) return;
 		this.mapReady.then(() => {
-			this.clearFixed();
+			console.log('CREATED POLYGON');
+			this.clearOverlay(this.lastFixed);
 			this.lastFixed = new google.maps.Polygon({
 				paths: points,
 				strokeColor: '#000000',
@@ -141,10 +195,9 @@ export class MapComponent implements OnInit {
 				strokeWeight: 2,
 				fillColor: '#000000',
 				fillOpacity: 0.35,
-				zIndex: 0
+				zIndex: 0,
+				map: this.map
 			});
-			this.lastFixed.setMap(this.map);
-			console.log('CREATED POLYGON');
 		});
 	}
 
@@ -209,18 +262,9 @@ export class MapComponent implements OnInit {
 		});
 	}
 
-	clearDraw() {
-		if (this.lastDraw !== undefined) {
-			this.lastDraw.setMap(null);
-			this.lastDraw = undefined;
-		}
+	clearOverlay(overlay) {
+		if (overlay === undefined) return;
+		overlay.setMap(null);
 	}
 
-	clearFixed() {
-		if (this.lastFixed !== undefined) {
-			this.lastFixed.setMap(null);
-			this.lastFixed = undefined;
-		}
-	}
-	
 }

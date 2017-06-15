@@ -1,29 +1,32 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 
-import { SpotsService } from '../../services';
+import { SpotsService, SubZonesService } from '../../services';
+
 
 @Component({
 	selector: 'app-spots',
 	templateUrl: './spots.component.html',
 	styleUrls: ['./spots.component.scss'],
-	providers: [ SpotsService ]
+	providers: [ SpotsService, SubZonesService ]
 })
 export class SpotsComponent implements OnInit {
 
 	@ViewChild('table') 
 	table: DatatableComponent;
 
-	// Cache para las paradas
-	spots = [];
+	// Cache para las sub zonas
+	zones = [];
 
-	// Sub zonas
+	// Paradas
 	rows  = [];
 	cols  = [];
 	cache = [];
 	selection: any;
 
-	constructor(private _spotServ: SpotsService) {
+	constructor(
+		private _spotServ: SpotsService,
+		private _subZoneServ: SubZonesService) {
 		this.cols = [{ name: 'Nombre', prop: 'nombre' }];
 	}
 
@@ -44,11 +47,11 @@ export class SpotsComponent implements OnInit {
 	fetchSubZones() {
 		/* Fetch sub zones */
 		console.log('Sub Zones Fetched!');
-		//		this._subZoneServ.get()
-		//			.subscribe(
-		//				zones => this.initTable(zones),
-		//				error => console.log(error)
-		//			);
+		this._subZoneServ.get()
+			.subscribe(
+				(zones) => this.zones = zones,
+				(error) => console.log(error)
+			);
 	}
 
 	initTable(spots: any[]) {
@@ -73,7 +76,8 @@ export class SpotsComponent implements OnInit {
 
 	handleAdd(zone)	{
 		// Actualiza las filas con la zona nueva
-		this.fetchSubZones();
+		this.fetchSpots();
+		console.log(zone);
 	}
 
 	handleEdit(zone) {
@@ -81,7 +85,7 @@ export class SpotsComponent implements OnInit {
 		this.selection.nombre = zone.nombre;
 		this.selection.zonas_id = zone.zonas_id;
 		this.selection.poligono = zone.poligono;
-		this.fetchSubZones();
+		this.fetchSpots();
 	}
 
 	isSelected() {

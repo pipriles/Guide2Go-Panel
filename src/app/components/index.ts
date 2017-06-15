@@ -13,5 +13,7 @@ export * from './sub-zones/add/add.component';
 export * from './sub-zones/edit/edit.component';
 export * from './sub-zones/sub-zones.component';
 
+export * from './spots/add/add.component';
+export * from './spots/edit/edit.component';
 export * from './spots/spots.component';
 

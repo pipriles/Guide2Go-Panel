@@ -1,3 +1,78 @@
-<p>
-  add works!
-</p>
+<form (ngSubmit)="addSpot()">
+
+	<div class="form-group">
+
+
+			<md-input-container 
+				class="form-input ng-invalid" 
+				[hideRequiredMarker]="true" >
+				<input 
+					mdInput 
+					[(ngModel)]="data.name" 
+					name="spot-name" 
+					type="text" 
+					placeholder="Nombre" 
+					required />
+			</md-input-container>
+
+			<md-input-container 
+				class="form-input ng-invalid" 
+				[hideRequiredMarker]="true" >
+				<input 
+					mdInput 
+					[(ngModel)]="data.description" 
+					name="spot-description" 
+					type="text" 
+					placeholder="Descripcion" 
+					required />
+			</md-input-container>
+
+		<md-select 
+			class="form-select" 
+			placeholder="Sub Zona" 
+			[ngModel]="data.subzone" 
+	 		(ngModelChange)="changeZone($event)"
+			name="zone-name">
+
+			<md-option 
+				*ngFor="let zone of zones" 
+				[value]="zone.id"> 
+				{{ zone.nombre }}
+			</md-option>
+
+		</md-select>
+
+		<md-select 
+			class="form-select" 
+			placeholder="Categoria" 
+			[(ngModel)]="data.category" 
+			name="zone-name">
+
+			<!-- Esto no deberia hacer asi... -->
+			<md-option value="1"> Museo </md-option>
+			<md-option value="2"> Galeria </md-option>
+
+		</md-select>
+
+		<!-- Muy poco flexible :/
+		<agm-map customMap 
+			[drawing]="drawOpts" 
+			[latitude]="lat" 
+			[longitude]="lng" 
+			[streetViewControl]="false"> 
+		</agm-map>
+		-->
+
+		<app-map 
+			#map
+			mode="marker"
+			[fixedPolygon]="parentPolygon"
+			(markerComplete)="setMarker($event)" >
+		</app-map>
+
+	</div>
+
+	<button md-raised-button>Crear Parada</button>
+
+</form>
+
