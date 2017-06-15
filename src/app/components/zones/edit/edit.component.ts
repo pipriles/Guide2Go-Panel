@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 
 import {} from '@types/googlemaps';
+import { MapComponent } from '../../map/map.component';
 import { ZonesMapComponent } from '../map/map.component';
 import { ZonesService } from '../../../services';
 
@@ -16,7 +17,7 @@ export class ZonesEditComponent implements OnInit {
 	@Output('cancel')  cancel  = new EventEmitter();
 	@Output('request') request = new EventEmitter();
 
-	@ViewChild('map') map: ZonesMapComponent;
+	@ViewChild('map') map: MapComponent;
 	_id: number;
 	_zone: any;
 	mapPolygon: any[];
@@ -55,6 +56,7 @@ export class ZonesEditComponent implements OnInit {
 		let mapPolygon = this.fixPolygonForMap(polygon);
 		let reqPolygon = this.fixPolygonForReq(polygon);
 
+		this.map.fitPolygonBounds(mapPolygon);
 		this.mapPolygon = mapPolygon;
 		this._id = opt.id;
 		this._zone = {

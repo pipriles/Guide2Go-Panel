@@ -56,25 +56,26 @@
 		</agm-map>
 		-->
 
-		<app-zones-map #map 
+		<app-map #map 
 			[polygon]="mapPolygon" 
 			(polygonComplete)="setPolygon($event)">
-		</app-zones-map>
+		</app-map>
 
 	</div>
 
 	<div class="btn-group">
-		<button 
-			id="btn-submit" 
-			md-raised-button>
-			Modificar Zona
-		</button>
 		<button 
 	 		type="button"
 	 		id="btn-cancel" 
 			md-raised-button 
 			(click)="stopEdit()" >
 			Cancelar
+		</button>
+
+		<button 
+			id="btn-submit" 
+			md-raised-button>
+			Modificar Zona
 		</button>
 	</div>
 	
