@@ -30,6 +30,7 @@
 				[rowHeight]="'auto'"
 				[selectionType]="'single'">
 			</ngx-datatable>
+
 		</div>	
 
 		<!-- Toggle Only Visibility!!! -->
@@ -41,16 +42,14 @@
 			(request)="handleAdd($event)">
 		</app-spots-add>
 
-		<!--
-		<app-sub-zones-edit 
+		<app-spots-edit 
 		 	class="edit-form"
-			*ngIf="isSelected()"
-			[zone]="selection"
+			*ngIf="isSelected()" 
+			[spot]="selection"
 			[zones]="zones"
 			(request)="handleEdit($event)"
 			(cancel)="clearSelection()">
-		</app-sub-zones-edit>
-		-->
+		</app-spots-edit>
 
 	</div>
 

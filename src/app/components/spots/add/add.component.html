@@ -32,7 +32,7 @@
 			placeholder="Sub Zona" 
 			[ngModel]="data.subzone" 
 	 		(ngModelChange)="changeZone($event)"
-			name="zone-name">
+			name="sub-zone-name">
 
 			<md-option 
 				*ngFor="let zone of zones" 
@@ -46,7 +46,7 @@
 			class="form-select" 
 			placeholder="Categoria" 
 			[(ngModel)]="data.category" 
-			name="zone-name">
+			name="spot-category">
 
 			<!-- Esto no deberia hacer asi... -->
 			<md-option value="1"> Museo </md-option>
@@ -63,8 +63,7 @@
 		</agm-map>
 		-->
 
-		<app-map 
-			#map
+		<app-map #map
 			mode="marker"
 			[fixedPolygon]="parentPolygon"
 			(markerComplete)="setMarker($event)" >

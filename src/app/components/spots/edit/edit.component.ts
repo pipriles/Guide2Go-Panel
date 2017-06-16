@@ -6,11 +6,11 @@ import { MapComponent } from '../../map/map.component';
 import { SubZonesService } from '../../../services';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+	selector: 'app-spots-edit',
+	templateUrl: './edit.component.html',
+	styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class SpotsEditComponent implements OnInit {
 
 	@Output() cancel  = new EventEmitter();
 	@Output() request = new EventEmitter();
@@ -22,78 +22,96 @@ export class EditComponent implements OnInit {
 
 	data: any;
 	parentPolygon: any[];
-	childPolygon: any[];
+	childMarker: any;
 
 	constructor(private _serv: SubZonesService) {
 		this.zones = [];
 		this.data = { 
 			id: undefined,
-			name: '', 
+			name: '',
+			description: '',
 			zone: undefined,
-			polygon: [] 
+			category: undefined,
+			point: undefined
 		};
 	}
 
 	ngOnInit() {}
 
-	editSubZone() {
+	editSpot() {
 
 		let data = this.data;
-		if (data.name == '') 				 return;
-		if (data.zone === undefined) return;
-		if (data.polygon.length < 1) return;
-		
+		if ( data.name === ''
+			|| data.description === ''
+			|| data.zone  === undefined
+			|| data.category  === undefined
+			|| data.point === undefined)
+			return;
+
 		let id = this.data.id;
 		let body = {
 			name: this.data.name,
-			zone: this.data.zone,
-			polygon: this.data.polygon
+			subzone: this.data.zone,
+			category: this.data.category,
+			description: this.data.description,
+			point: this.data.point
 		};
-		
+
 		console.log('Request body:', id, body);
 
-		/* Modifica la sub zona */
-		this._serv.update(id, body)
-			.subscribe(
-				(res) => this.request.emit(res),
-				(err) => console.log(err)
-			);
+		//		/* Modifica la sub zona */
+		//		this._serv.update(id, body)
+		//			.subscribe(
+		//				(res) => this.request.emit(res),
+		//				(err) => console.log(err)
+		//			);
 	}
 
-	setPolygon(polygon) {
-		this.data.polygon = polygon;
+	setMarker(point) {
+		this.data.point = point;
 	}
 
 	@Input()
-	set zone(opt) {
+	set spot(opt) {
 		if (opt === undefined) return;
-		let parentPolygon = this.fixPolygonForMap(opt.zona.poligono);
-		let childPolygon = this.fixPolygonForMap(opt.poligono);
 
-		this.map.fitPolygonBounds(childPolygon);
-		this.childPolygon = childPolygon;
-		this.parentPolygon = parentPolygon
+		let parentPolygon = this.fixPolygonForMap(opt.sub_zona.poligono);
+		let childMarker = this.fixMarkerForMap(opt.punto);
+
+		this.map.fitPolygonBounds(parentPolygon);
+		this.childMarker = childMarker;
+		this.parentPolygon = parentPolygon;
 		this.data = {
 			id: opt.id,
-			name: opt.nombre, // Por que nombre? :(
-			zone: opt.zona.id,
-			polygon: this.fixPolygonForReq(opt.poligono)
+			name: opt.nombre,
+			zone: opt.sub_zonas_id,
+			category: opt.categoria_id,
+			description: opt.descripcion,
+			point: this.fixMarkerForReq(opt.punto)
 		};
 	}
 
-	get zone() {
+	get spot() {
 		return this.data;
 	}
 
 	changeZone(zone: number) {
 		let result = this.zones.find((elem) => elem.id === zone);
 		let polygon = this.fixPolygonForMap(result.poligono);
+		this.map.fitPolygonBounds(polygon);
 
 		this.data.zone = result.id;
 		this.parentPolygon = polygon;
 	}
 
 	// Se puede mover esto a un servicio
+	private fixMarkerForMap(marker) {
+		return { lat: marker.lat, lng: marker.lon };
+	}
+
+	private fixMarkerForReq(marker) {
+		return [ marker.lat, marker.lon ];
+	}
 
 	private fixPolygonForMap(polygon) {
 		let points = polygon.linestrings[0].points;

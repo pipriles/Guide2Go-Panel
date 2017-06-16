@@ -33,6 +33,7 @@ import {
 
 	SpotsComponent,
 	SpotsAddComponent,
+	SpotsEditComponent
 
 } from './components';
 
@@ -55,7 +56,8 @@ import {
 		SubZonesEditComponent,
 
 		SpotsComponent,
-		SpotsAddComponent
+		SpotsAddComponent,
+		SpotsEditComponent
 
 	],
 	imports: [
