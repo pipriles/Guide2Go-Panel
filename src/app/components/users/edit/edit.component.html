@@ -1,3 +1,86 @@
-<p>
-  edit works!
-</p>
+<form (ngSubmit)="editUser()">
+
+	<div class="form-group">
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="data.name" 
+				name="user-name" 
+				type="text" 
+				mdInput 
+				placeholder="Nombre" 
+				required />
+		</md-input-container>
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="data.email" 
+				name="user-email" 
+				type="text" 
+				mdInput 
+				placeholder="Email" 
+				required />
+		</md-input-container>
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="data.password" 
+				name="user-password" 
+				type="password" 
+				mdInput 
+				placeholder="Clave (Dejarla en blanco si no quieres modificar)" />
+		</md-input-container>
+
+		<md-select 
+			class="form-input" 
+			placeholder="Tipo de usuario" 
+			[ngModel]="data.user_type"
+			(ngModelChange)="changeType($event)" 
+			name="user_type">
+
+			<md-option [value]='1'> 
+				Admin
+			</md-option>
+			<md-option [value]='2'> 
+				Blogger
+			</md-option>
+			<md-option [value]='3'> 
+				Normal
+			</md-option>
+
+		</md-select>
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="data.dolares" 
+				name="user-dolares" 
+				type="number" 
+				mdInput 
+				placeholder="Dolares" 
+				required />
+		</md-input-container>
+
+	</div>
+	<div class="btn-group">
+		<button 
+			md-raised-button
+			id="btn-submit">
+			Modificar Usuario
+		</button>
+		<button 
+			md-raised-button 
+	 		type="button"
+	 		id="btn-cancel" 
+			(click)="stopEdit()">
+			Cancelar
+		</button>
+	</div>
+</form>

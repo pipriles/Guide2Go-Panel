@@ -33,12 +33,13 @@ import {
 
 	SpotsComponent,
 	SpotsAddComponent,
-	SpotsEditComponent
+	SpotsEditComponent,
+
+	UsersComponent,
+	UsersAddComponent,
+	UsersEditComponent
 
 } from './components';
-import { UsersComponent } from './components/users/users.component';
-import { AddComponent } from './components/users/add/add.component';
-import { EditComponent } from './components/users/edit/edit.component';
 
 @NgModule({
 	declarations: [
@@ -61,9 +62,10 @@ import { EditComponent } from './components/users/edit/edit.component';
 		SpotsComponent,
 		SpotsAddComponent,
 		SpotsEditComponent,
+
 		UsersComponent,
-		AddComponent,
-		EditComponent
+		UsersAddComponent,
+		UsersEditComponent
 
 	],
 	imports: [

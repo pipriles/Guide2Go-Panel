@@ -12,14 +12,14 @@
 			<md-input-container 
 				class="login-input ng-invalid">
 				<input mdInput 
-					(keyup)="filterZones($event)" 
+					(keyup)="filterUsers($event)" 
 					placeholder="Filtrar Usuarios" />
 			</md-input-container>	
 
 			<ngx-datatable
 				#table
 				class='material'
-		 		(select)="selectZone($event)"
+		 		(select)="selectUser($event)"
 				[rows]='rows'
 				[columns]="cols"
 				[columnMode]="'force'"
@@ -31,6 +31,21 @@
 			</ngx-datatable>
 
 		</div>
+
+		<app-users-add 
+		 	class="edit-form"
+			(request)="handleAdd($event)"
+			*ngIf="!isSelected()">
+		</app-users-add>
+
+		<app-users-edit
+		 	class="edit-form"
+		 	[user]="selection"
+			(request)="handleEdit($event)"
+			(cancel)="handleEdit($event)"
+			*ngIf="isSelected()">
+		</app-users-edit>
+
 
 	</div>
 
