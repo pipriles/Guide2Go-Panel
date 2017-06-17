@@ -14,7 +14,8 @@ export class PanelComponent {
 			{ name: 'Guias', route: '/guias' },
 			{ name: 'Zonas', route: '/zonas' },
 			{ name: 'Sub Zonas', route: '/sub-zonas' },
-			{ name: 'Paradas', route: '/paradas' }
+			{ name: 'Paradas', route: '/paradas' },
+			{ name: 'Usuarios', route: '/usuarios'}
 		];
 	}
 

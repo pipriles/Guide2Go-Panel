@@ -36,6 +36,9 @@ import {
 	SpotsEditComponent
 
 } from './components';
+import { UsersComponent } from './components/users/users.component';
+import { AddComponent } from './components/users/add/add.component';
+import { EditComponent } from './components/users/edit/edit.component';
 
 @NgModule({
 	declarations: [
@@ -57,7 +60,10 @@ import {
 
 		SpotsComponent,
 		SpotsAddComponent,
-		SpotsEditComponent
+		SpotsEditComponent,
+		UsersComponent,
+		AddComponent,
+		EditComponent
 
 	],
 	imports: [

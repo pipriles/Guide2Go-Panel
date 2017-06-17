@@ -1,0 +1,37 @@
+<app-panel>
+	<div class="title">
+		<a> 
+			Usuarios
+		</a>
+	</div>
+
+	<div class="grid-container">
+
+		<div class="opt-table">
+
+			<md-input-container 
+				class="login-input ng-invalid">
+				<input mdInput 
+					(keyup)="filterZones($event)" 
+					placeholder="Filtrar Usuarios" />
+			</md-input-container>	
+
+			<ngx-datatable
+				#table
+				class='material'
+		 		(select)="selectZone($event)"
+				[rows]='rows'
+				[columns]="cols"
+				[columnMode]="'force'"
+				[headerHeight]="'flex'"
+				[footerHeight]="'flex'"
+				[limit]="10"
+				[rowHeight]="'auto'"
+				[selectionType]="'single'">
+			</ngx-datatable>
+
+		</div>
+
+	</div>
+
+</app-panel>

@@ -17,3 +17,7 @@ export * from './spots/add/add.component';
 export * from './spots/edit/edit.component';
 export * from './spots/spots.component';
 
+export * from './users/add/add.component';
+export * from './users/edit/edit.component';
+export * from './users/users.component';
+
