@@ -4,11 +4,13 @@ import {
 
 import { MapComponent } from '../../map/map.component';
 import { SpotsService } from '../../../services';
+import { AudiosService } from '../../../services';
 
 @Component({
 	selector: 'app-spots-edit',
 	templateUrl: './edit.component.html',
-	styleUrls: ['./edit.component.scss']
+	styleUrls: ['./edit.component.scss'],
+	providers: [AudiosService]
 })
 export class SpotsEditComponent implements OnInit {
 
@@ -24,7 +26,7 @@ export class SpotsEditComponent implements OnInit {
 	parentPolygon: any[];
 	childMarker: any;
 
-	constructor(private _serv: SpotsService) {
+	constructor(private _serv: SpotsService, private _audserv: AudiosService) {  
 		this.zones = [];
 		this.data = { 
 			id: undefined,
@@ -32,7 +34,8 @@ export class SpotsEditComponent implements OnInit {
 			description: '',
 			zone: undefined,
 			category: undefined,
-			point: undefined
+			point: undefined,
+			audio: undefined
 		};
 	}
 
@@ -102,6 +105,21 @@ export class SpotsEditComponent implements OnInit {
 
 		this.data.zone = result.id;
 		this.parentPolygon = polygon;
+	}
+
+	fileSelected(audio){
+		let audioDat ={
+			aud: audio,
+			lang: 1,
+			spot: this.data.id
+		}
+		console.log(audioDat);
+		this.data.audio = audio;
+		console.log(this.data.audio);
+		this._audserv.create(audioDat).subscribe(
+						(res) => console.log(res),
+						(err) => console.log(err)
+					);;
 	}
 
 	// Se puede mover esto a un servicio

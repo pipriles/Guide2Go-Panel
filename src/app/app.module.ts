@@ -65,7 +65,7 @@ import {
 
 		UsersComponent,
 		UsersAddComponent,
-		UsersEditComponent
+		UsersEditComponent,
 
 	],
 	imports: [

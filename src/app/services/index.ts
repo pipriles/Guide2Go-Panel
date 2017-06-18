@@ -4,3 +4,4 @@ export * from './zones/zones.service';
 export * from './sub-zones/sub-zones.service';
 export * from './spots/spots.service';
 export * from './users/users.service';
+export * from './audios/audios.service';

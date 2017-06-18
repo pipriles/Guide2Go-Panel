@@ -69,6 +69,8 @@
 			(markerComplete)="setMarker($event)">
 		</app-map>
 
+		<input type="file" (change)="fileSelected($event.target.files[0])"/>
+
 	</div>
 
 	<div class="btn-group">
