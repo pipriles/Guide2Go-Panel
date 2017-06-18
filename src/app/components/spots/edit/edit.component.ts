@@ -29,10 +29,13 @@ export class SpotsEditComponent implements OnInit {
 	parentPolygon: any[];
 	childMarker: any;
 
+	uploading: boolean;
+
 	constructor(
 		private _serv: SpotsService, 
 		private _audServ: AudiosService) {  
 
+		this.uploading = false;
 		this.zones = [];
 		this.data = { 
 			id: undefined,
@@ -68,9 +71,13 @@ export class SpotsEditComponent implements OnInit {
 
 		console.log('Request body:', id, body);
 
+		this.uploading = true;
 		this._audServ.create(this.data.audio)
 			.subscribe(
-				(res) => console.log(res),
+				(res) => {
+					this.uploading = false;
+					console.log(res);
+				},
 				(err) => console.log(err)
 			);
 

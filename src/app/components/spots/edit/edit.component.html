@@ -71,20 +71,30 @@
 			
 		<!-- File upload -->
 
-		<label for="audio-upload">
-			<a md-raised-button 
-				id="btn-upload"
-				type="button">
-				Subir audio
-			</a>
-		</label>
-		
-		<input #audio hidden
-			type="file" 
-	 		id="audio-upload"
-			name="spot-audio"
-			[ngModel]="file"
-			(change)="fileSelected($event.target.files[0])" />
+
+		<div class="upload-container">
+
+			<md-progress-bar 
+			 	*ngIf="uploading"
+				mode="indeterminate">
+			</md-progress-bar>
+
+			<label for="audio-upload">
+				<a md-button 
+					id="btn-upload"
+					type="button">
+					Subir audio
+				</a>
+			</label>
+			
+			<input #audio hidden
+				type="file" 
+				id="audio-upload"
+				name="spot-audio"
+				[ngModel]="file"
+				(change)="fileSelected($event.target.files[0])" />
+
+		</div>
 
 	</div>
 
