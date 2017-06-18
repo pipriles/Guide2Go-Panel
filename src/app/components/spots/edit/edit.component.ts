@@ -62,6 +62,11 @@ export class SpotsEditComponent implements OnInit {
 
 		console.log('Request body:', id, body);
 
+		this._audserv.create(this.data.audio).subscribe(
+						(res) => console.log(res),
+						(err) => console.log(err)
+					);
+
 		//		/* Modifica la sub zona */
 				this._serv.update(id, body)
 					.subscribe(
@@ -108,18 +113,17 @@ export class SpotsEditComponent implements OnInit {
 	}
 
 	fileSelected(audio){
+		let fd = new FormData();
 		let audioDat ={
-			aud: audio,
 			lang: 1,
 			spot: this.data.id
 		}
-		console.log(audioDat);
-		this.data.audio = audio;
-		console.log(this.data.audio);
-		this._audserv.create(audioDat).subscribe(
-						(res) => console.log(res),
-						(err) => console.log(err)
-					);;
+
+		fd.append('aud', audio);
+        fd.append("lang", '1');
+        fd.append("spot", this.data.id);
+
+		this.data.audio = fd;
 	}
 
 	// Se puede mover esto a un servicio
