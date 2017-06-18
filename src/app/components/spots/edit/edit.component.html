@@ -68,8 +68,23 @@
 			[fixedPolygon]="parentPolygon"
 			(markerComplete)="setMarker($event)">
 		</app-map>
+			
+		<!-- File upload -->
 
-		<input type="file" (change)="fileSelected($event.target.files[0])"/>
+		<label for="audio-upload">
+			<a md-raised-button 
+				id="btn-upload"
+				type="button">
+				Subir audio
+			</a>
+		</label>
+		
+		<input #audio hidden
+			type="file" 
+	 		id="audio-upload"
+			name="spot-audio"
+			[ngModel]="file"
+			(change)="fileSelected($event.target.files[0])" />
 
 	</div>
 

@@ -5,11 +5,9 @@ import { Observable } from 'rxjs';
 
 import { HttpUtil } from '../http-util/http-util.service';
 
-
 const CustomHeaders = { 
 	'Access-Control-Allow-Origin': '*'
 };
-
 
 @Injectable()
 export class AudiosService {
@@ -17,7 +15,9 @@ export class AudiosService {
   apiRoute: string;
   _headers: Object;
 
-	constructor(private authHttp: AuthHttp,private httpUtil: HttpUtil) {
+	constructor(
+		private authHttp: AuthHttp,
+		private httpUtil: HttpUtil) {
 		this.apiRoute = `${this.httpUtil.apiUrl}/audio`;
 		this._headers = CustomHeaders;
 	}
@@ -26,6 +26,9 @@ export class AudiosService {
 		let url = this.apiRoute;
 		let opt = this.getOptions();
 
+		console.log('Uploading...');
+		console.log(url);
+		console.log(body);
 		return this.authHttp.post(url, body, opt)
 			.map((resp: Response) => resp.json());
 	}

@@ -36,12 +36,17 @@ form {
 	width: 49.5%;
 }
 
+#btn-upload {
+	margin-top: 16px;
+	width: 100%;
+}
+
 @media only screen and (max-width: 1230px) {
 	#btn-submit {
 		width: 100%;
-		margin-bottom: 5px;
 	}
 	#btn-cancel {
+		margin-bottom: 5px;
 		width: 100%;
 	}
 }

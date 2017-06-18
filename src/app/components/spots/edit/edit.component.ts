@@ -20,13 +20,19 @@ export class SpotsEditComponent implements OnInit {
 	@ViewChild('map') 
 	map: MapComponent;
 
+	@ViewChild('audio')
+	audio: ElementRef;
+
 	@Input() zones: any[];
 
 	data: any;
 	parentPolygon: any[];
 	childMarker: any;
 
-	constructor(private _serv: SpotsService, private _audserv: AudiosService) {  
+	constructor(
+		private _serv: SpotsService, 
+		private _audServ: AudiosService) {  
+
 		this.zones = [];
 		this.data = { 
 			id: undefined,
@@ -62,17 +68,18 @@ export class SpotsEditComponent implements OnInit {
 
 		console.log('Request body:', id, body);
 
-		this._audserv.create(this.data.audio).subscribe(
-						(res) => console.log(res),
-						(err) => console.log(err)
-					);
+		this._audServ.create(this.data.audio)
+			.subscribe(
+				(res) => console.log(res),
+				(err) => console.log(err)
+			);
 
-		//		/* Modifica la sub zona */
-				this._serv.update(id, body)
-					.subscribe(
-						(res) => this.request.emit(res),
-						(err) => console.log(err)
-					);
+		/* Modifica la spot */
+		this._serv.update(id, body)
+			.subscribe(
+				(res) => this.request.emit(res),
+				(err) => console.log(err)
+			);
 	}
 
 	setMarker(point) {
@@ -97,6 +104,9 @@ export class SpotsEditComponent implements OnInit {
 			description: opt.descripcion,
 			point: this.fixMarkerForReq(opt.punto)
 		};
+
+		// Hay que hacer una forma para hacer preview
+		this.audio.nativeElement.value = "";
 	}
 
 	get spot() {
@@ -112,17 +122,21 @@ export class SpotsEditComponent implements OnInit {
 		this.parentPolygon = polygon;
 	}
 
-	fileSelected(audio){
+	fileSelected(audio) {
+
+		console.log('Selected file', audio);
+
 		let fd = new FormData();
-		let audioDat ={
+		let audioDat = {
 			lang: 1,
 			spot: this.data.id
 		}
 
 		fd.append('aud', audio);
-        fd.append("lang", '1');
-        fd.append("spot", this.data.id);
+		fd.append("lang", '1');
+		fd.append("spot", this.data.id);
 
+		console.log(fd);
 		this.data.audio = fd;
 	}
 
