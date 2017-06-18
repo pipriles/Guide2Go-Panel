@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 
 import { MapComponent } from '../../map/map.component';
-import { SubZonesService } from '../../../services';
+import { SpotsService } from '../../../services';
 
 @Component({
 	selector: 'app-spots-edit',
@@ -24,7 +24,7 @@ export class SpotsEditComponent implements OnInit {
 	parentPolygon: any[];
 	childMarker: any;
 
-	constructor(private _serv: SubZonesService) {
+	constructor(private _serv: SpotsService) {
 		this.zones = [];
 		this.data = { 
 			id: undefined,
@@ -60,11 +60,11 @@ export class SpotsEditComponent implements OnInit {
 		console.log('Request body:', id, body);
 
 		//		/* Modifica la sub zona */
-		//		this._serv.update(id, body)
-		//			.subscribe(
-		//				(res) => this.request.emit(res),
-		//				(err) => console.log(err)
-		//			);
+				this._serv.update(id, body)
+					.subscribe(
+						(res) => this.request.emit(res),
+						(err) => console.log(err)
+					);
 	}
 
 	setMarker(point) {
