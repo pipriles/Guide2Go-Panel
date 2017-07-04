@@ -5,12 +5,13 @@ import {
 import { MapComponent } from '../../map/map.component';
 import { SpotsService } from '../../../services';
 import { AudiosService } from '../../../services';
+import { PhotosService } from '../../../services'
 
 @Component({
 	selector: 'app-spots-edit',
 	templateUrl: './edit.component.html',
 	styleUrls: ['./edit.component.scss'],
-	providers: [AudiosService]
+	providers: [AudiosService,PhotosService]
 })
 export class SpotsEditComponent implements OnInit {
 
@@ -23,19 +24,25 @@ export class SpotsEditComponent implements OnInit {
 	@ViewChild('audio')
 	audio: ElementRef;
 
+	@ViewChild('photo')
+	photo: ElementRef;
+
 	@Input() zones: any[];
 
 	data: any;
 	parentPolygon: any[];
 	childMarker: any;
 
-	uploading: boolean;
+	uploadingAudio: boolean;
+	uploadingPhoto: boolean;
 
 	constructor(
 		private _serv: SpotsService, 
-		private _audServ: AudiosService) {  
+		private _audServ: AudiosService,
+		private _photoServ: PhotosService) {  
 
-		this.uploading = false;
+		this.uploadingAudio = false;
+		this.uploadingPhoto = false;
 		this.zones = [];
 		this.data = { 
 			id: undefined,
@@ -44,7 +51,8 @@ export class SpotsEditComponent implements OnInit {
 			zone: undefined,
 			category: undefined,
 			point: undefined,
-			audio: undefined
+			audio: undefined,
+			photo: undefined
 		};
 	}
 
@@ -71,14 +79,30 @@ export class SpotsEditComponent implements OnInit {
 
 		console.log('Request body:', id, body);
 
-		this.uploading = true;
+		this.uploadingAudio = true;
 		this._audServ.create(this.data.audio)
 			.subscribe(
 				(res) => {
-					this.uploading = false;
+					this.uploadingAudio = false;
 					console.log(res);
 				},
-				(err) => console.log(err)
+				(err) => {
+					console.log(err);
+					this.uploadingAudio = false;
+				}
+			);
+
+		this.uploadingPhoto = true;
+		this._photoServ.create(this.data.photo)
+			.subscribe(
+				(res) => {
+					this.uploadingPhoto = false;
+					console.log(res);
+				},
+				(err) => {
+					console.log(err);
+					this.uploadingPhoto = false;
+				}
 			);
 
 		/* Modifica la spot */
@@ -114,6 +138,7 @@ export class SpotsEditComponent implements OnInit {
 
 		// Hay que hacer una forma para hacer preview
 		this.audio.nativeElement.value = "";
+		this.photo.nativeElement.value = "";
 	}
 
 	get spot() {
@@ -127,6 +152,21 @@ export class SpotsEditComponent implements OnInit {
 
 		this.data.zone = result.id;
 		this.parentPolygon = polygon;
+	}
+
+	fileSelectedPhoto(photo) {
+		console.log("Selected File", photo);
+
+		let fd = new FormData();
+		let photoDat = {
+			spot: this.data.id
+		}
+
+		fd.append('photo', photo);
+		fd.append("spot", this.data.id);
+
+		console.log(fd);
+		this.data.photo = fd;
 	}
 
 	fileSelected(audio) {
