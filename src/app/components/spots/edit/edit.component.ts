@@ -48,6 +48,7 @@ export class SpotsEditComponent implements OnInit {
 			id: undefined,
 			name: '',
 			description: '',
+			meters: undefined,
 			zone: undefined,
 			category: undefined,
 			point: undefined,
@@ -65,7 +66,8 @@ export class SpotsEditComponent implements OnInit {
 			|| data.description === ''
 			|| data.zone  === undefined
 			|| data.category  === undefined
-			|| data.point === undefined)
+			|| data.point === undefined
+			|| data.meters === undefined)
 			return;
 
 		let id = this.data.id;
@@ -74,7 +76,8 @@ export class SpotsEditComponent implements OnInit {
 			subzone: this.data.zone,
 			category: this.data.category,
 			description: this.data.description,
-			point: this.data.point
+			point: this.data.point,
+			meters: this.data.meters
 		};
 
 		console.log('Request body:', id, body);
@@ -133,7 +136,8 @@ export class SpotsEditComponent implements OnInit {
 			zone: opt.sub_zonas_id,
 			category: opt.categoria_id,
 			description: opt.descripcion,
-			point: this.fixMarkerForReq(opt.punto)
+			point: this.fixMarkerForReq(opt.punto),
+			meters: opt.metros
 		};
 
 		// Hay que hacer una forma para hacer preview

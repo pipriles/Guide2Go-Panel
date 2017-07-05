@@ -19,6 +19,18 @@
 			[hideRequiredMarker]="true" >
 			<input 
 				mdInput 
+				[(ngModel)]="data.meters" 
+				name="spot-meters" 
+				type="number" 
+				placeholder="Metros de activacion" 
+				required />
+		</md-input-container>
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				mdInput 
 				[(ngModel)]="data.description" 
 				name="spot-description" 
 				type="text" 

@@ -30,7 +30,8 @@ export class SpotsAddComponent implements OnInit {
 			description: '',
 			zone: undefined,
 			category: undefined,
-			point: undefined
+			point: undefined,
+			meters: undefined
 		};
 	}
 
@@ -45,7 +46,8 @@ export class SpotsAddComponent implements OnInit {
 			|| data.description === ''
 			|| data.zone  === undefined
 			|| data.category  === undefined
-			|| data.point === undefined)
+			|| data.point === undefined
+			|| data.meters === undefined)
 			return;
 
 		let body = {
@@ -53,7 +55,8 @@ export class SpotsAddComponent implements OnInit {
 			subzone: this.data.zone,
 			category: this.data.category,
 			description: this.data.description,
-			point: this.data.point
+			point: this.data.point,
+			meters: this.data.meters
 		};
 
 		/* Create here */
