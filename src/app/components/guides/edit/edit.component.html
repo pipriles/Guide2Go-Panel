@@ -2,24 +2,35 @@
 
 	<div class="form-group">
 
-		<!--<md-select 
+		<md-select 
 			class="form-input" 
-			placeholder="Tipo de usuario" 
-			[ngModel]="data.user_type"
-			(ngModelChange)="changeType($event)" 
-			name="user_type">
+			placeholder="Zona" 
+			[ngModel]="data.zonas_id" 
+	 		(ngModelChange)="changeZone($event)"
+			name="zone-name">
 
-			<md-option [value]='1'> 
-				Admin
-			</md-option>
-			<md-option [value]='2'> 
-				Blogger
-			</md-option>
-			<md-option [value]='3'> 
-				Normal
+			<md-option 
+				*ngFor="let zone of zones" 
+				[value]="zone.id"> 
+				{{ zone.name }}
 			</md-option>
 
-		</md-select>-->
+		</md-select>
+
+		<md-select 
+			class="form-input" 
+			placeholder="Idioma" 
+			[ngModel]="data.idiomas_id" 
+	 		(ngModelChange)="changeIdioma($event)"
+			name="idioma-name">
+
+			<md-option 
+				*ngFor="let idioma of idiomas" 
+				[value]="idioma.id"> 
+				{{ idioma.name }}
+			</md-option>
+
+		</md-select>
 
 		<md-input-container 
 			class="form-input ng-invalid" 
