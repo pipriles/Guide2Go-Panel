@@ -21,3 +21,7 @@ export * from './users/add/add.component';
 export * from './users/edit/edit.component';
 export * from './users/users.component';
 
+export * from './guides/add/add.component';
+export * from './guides/edit/edit.component';
+export * from './guides/guides.component';
+

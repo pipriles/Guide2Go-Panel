@@ -1,0 +1,52 @@
+<app-panel>
+	<div class="title">
+		<a> 
+			Guias
+		</a>
+	</div>
+
+	<div class="grid-container">
+
+		<div class="opt-table">
+
+			<md-input-container 
+				class="login-input ng-invalid">
+				<input mdInput 
+					(keyup)="filterGuides($event)" 
+					placeholder="Filtrar Guias" />
+			</md-input-container>	
+
+			<ngx-datatable
+				#table
+				class='material'
+		 		(select)="selectGuide($event)"
+				[rows]='rows'
+				[columns]="cols"
+				[columnMode]="'force'"
+				[headerHeight]="'flex'"
+				[footerHeight]="'flex'"
+				[limit]="10"
+				[rowHeight]="'auto'"
+				[selectionType]="'single'">
+			</ngx-datatable>
+
+		</div>
+
+		<!--<app-guides-add 
+		 	class="edit-form"
+			(request)="handleAdd($event)"
+			*ngIf="!isSelected()">
+		</app-guides-add>-->
+
+		<app-guides-edit
+		 	class="edit-form"
+		 	[guide]="selection"
+			(request)="handleEdit($event)"
+			(cancel)="handleEdit($event)"
+			*ngIf="isSelected()">
+		</app-guides-edit>
+
+
+	</div>
+
+</app-panel>

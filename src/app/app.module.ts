@@ -37,7 +37,11 @@ import {
 
 	UsersComponent,
 	UsersAddComponent,
-	UsersEditComponent
+	UsersEditComponent,
+
+	GuidesComponent,
+	GuidesAddComponent,
+	GuidesEditComponent,
 
 } from './components';
 
@@ -66,6 +70,10 @@ import {
 		UsersComponent,
 		UsersAddComponent,
 		UsersEditComponent,
+
+		GuidesComponent,
+		GuidesAddComponent,
+		GuidesEditComponent,
 
 	],
 	imports: [

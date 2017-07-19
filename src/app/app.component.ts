@@ -7,7 +7,8 @@ import {
 	ZonesComponent,
 	SubZonesComponent,
 	SpotsComponent,
-	UsersComponent
+	UsersComponent,
+	GuidesComponent
 } from './components';
 
 @Component({
@@ -23,6 +24,7 @@ const routes: Routes = [
 	{ path: 'sub-zonas', component: SubZonesComponent },
 	{ path: 'paradas', component: SpotsComponent },
 	{ path: 'usuarios', component: UsersComponent },
+	{ path: 'guias', component: GuidesComponent },
   { path: '',
     redirectTo: '/login', pathMatch: 'full'
   },

@@ -6,3 +6,4 @@ export * from './spots/spots.service';
 export * from './users/users.service';
 export * from './audios/audios.service';
 export * from './photos/photos.service';
+export * from './guides/guides.service';

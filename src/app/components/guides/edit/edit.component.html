@@ -1,0 +1,51 @@
+<form (ngSubmit)="editUser()">
+
+	<div class="form-group">
+
+		<!--<md-select 
+			class="form-input" 
+			placeholder="Tipo de usuario" 
+			[ngModel]="data.user_type"
+			(ngModelChange)="changeType($event)" 
+			name="user_type">
+
+			<md-option [value]='1'> 
+				Admin
+			</md-option>
+			<md-option [value]='2'> 
+				Blogger
+			</md-option>
+			<md-option [value]='3'> 
+				Normal
+			</md-option>
+
+		</md-select>-->
+
+		<md-input-container 
+			class="form-input ng-invalid" 
+			[hideRequiredMarker]="true" >
+			<input 
+				[(ngModel)]="data.costo" 
+				name="guide-costo" 
+				type="number" 
+				mdInput 
+				placeholder="Costo" 
+				required />
+		</md-input-container>
+
+	</div>
+	<div class="btn-group">
+		<button 
+			md-raised-button
+			id="btn-submit">
+			Modificar Usuario
+		</button>
+		<button 
+			md-raised-button 
+	 		type="button"
+	 		id="btn-cancel" 
+			(click)="stopEdit()">
+			Cancelar
+		</button>
+	</div>
+</form>

@@ -1,0 +1,18 @@
+.sidenav-content {
+  display: flex;
+	height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+a.title {
+	font-size: 25pt;
+	color: #7f7f7f;
+	text-decoration: none;
+	transition: color 0.7s;
+}
+
+a.title:hover {
+	color: #0f0f0f;
+}
+
