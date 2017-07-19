@@ -42,13 +42,13 @@ export class GuidesEditComponent implements OnInit {
 		}; 
 	}
 
-	editUser(){
+	editGuides(){
 		let data = this.data;
 
-		let body = {
-			costo: opt.costo,
-			idiomas_id: opt.idiomas_id,
-			zonas_id: opt.zonas_id
+		let body = { 
+			costo: this.data.costo,
+			idiomas_id: this.data.idiomas_id,
+			zonas_id: this.data.zonas_id
 		};
 
 		this._serv.update(data.id,body)
@@ -60,9 +60,5 @@ export class GuidesEditComponent implements OnInit {
 
 	stopEdit() {
 		this.cancel.emit();
-	}
-
-	changeType(type){
-		this.data.user_type = type;
 	}
 }

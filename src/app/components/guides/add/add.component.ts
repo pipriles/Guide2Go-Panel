@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input, ElementRef, 
 	Output, EventEmitter, OnInit  } from '@angular/core';
 
-import { UsersService } from '../../../services';
+import { GuidesService } from '../../../services';
 
 @Component({
   selector: 'app-guides-add',
@@ -14,34 +14,27 @@ export class GuidesAddComponent implements OnInit {
 	
 	data: any;
 
-  constructor(private _serv: UsersService) {
-  	//posiblemente haya q vambiar el page y user_type, pero en back end, osea crear un controlador
+  constructor(private _serv: GuidesService) {
+  	
   	this.data = {
-
-		dolares: 0,
-		email: '',
-		name: '',
-		referer_id: null,
-		user_type: null,
-		password: ''
+			costo: undefined,
+			idiomas_id: undefined,
+			zonas_id: undefined
   	};
    }
 
   ngOnInit() {}
 
-  addUser() {
+  addGuide() {
 		let data = this.data;
-		if (data.name == '') 	return;
-		if (data.email == '') return;
-		if (data.password == '') return;
-		if (!data.user_type) return;
+		if (data.costo == undefined) 	return;
+		if (data.idiomas_id == undefined) return;
+		if (data.zonas_id == undefined) return;
+
 		let body = {
-			name: this.data.name,
-			referer_id: this.data.referer_id,
-			password: this.data.password,
-			dolares: this.data.dolares,
-			user_types_id: this.data.user_type,
-			email: this.data.email
+			costo: data.costo,
+			idiomas_id: data.idiomas_id,
+			zonas_id: data.zonas_id
 		};
 
 		/* Create here */
@@ -50,10 +43,6 @@ export class GuidesAddComponent implements OnInit {
 				(res) => this.request.emit(res),
 				(err) => console.log(err)
 			);
-	}
-
-	changeType(type){
-		this.data.user_type = type;
 	}
 
 }

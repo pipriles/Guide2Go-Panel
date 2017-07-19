@@ -1,4 +1,4 @@
-<!--<form (ngSubmit)="addUser()">
+<form (ngSubmit)="addGuide()">
 
 	<div class="form-group">
 
@@ -6,39 +6,15 @@
 			class="form-input ng-invalid" 
 			[hideRequiredMarker]="true" >
 			<input 
-				[(ngModel)]="data.name" 
-				name="user-name" 
-				type="text" 
+				[(ngModel)]="data.costo" 
+				name="guide-costo" 
+				type="number" 
 				mdInput 
-				placeholder="Nombre" 
+				placeholder="Costo" 
 				required />
 		</md-input-container>
 
-		<md-input-container 
-			class="form-input ng-invalid" 
-			[hideRequiredMarker]="true" >
-			<input 
-				[(ngModel)]="data.email" 
-				name="user-email" 
-				type="text" 
-				mdInput 
-				placeholder="Email" 
-				required />
-		</md-input-container>
-
-		<md-input-container 
-			class="form-input ng-invalid" 
-			[hideRequiredMarker]="true" >
-			<input 
-				[(ngModel)]="data.password" 
-				name="user-password" 
-				type="password" 
-				mdInput 
-				placeholder="Clave" 
-				required />
-		</md-input-container>
-
-		<md-select 
+		<!--<md-select 
 			class="form-input" 
 			placeholder="Tipo de usuario" 
 			[ngModel]="data.user_type"
@@ -55,32 +31,9 @@
 				Normal
 			</md-option>
 
-		</md-select>
+		</md-select-->
 
-		<md-input-container 
-			class="form-input ng-invalid" 
-			[hideRequiredMarker]="true" >
-			<input 
-				[(ngModel)]="data.dolares" 
-				name="user-dolares" 
-				type="number" 
-				mdInput 
-				placeholder="Dolares" 
-				required />
-		</md-input-container>
-
-		<md-input-container 
-			class="form-input ng-invalid" 
-			[hideRequiredMarker]="true" >
-			<input 
-				[(ngModel)]="data.referer_id" 
-				name="user-referer" 
-				type="text" 
-				mdInput 
-				placeholder="Referer id" 
-				/>
-		</md-input-container>
 
 	</div>
 	<button md-raised-button>Crear Usuario</button>
-</form>-->
+</form>
