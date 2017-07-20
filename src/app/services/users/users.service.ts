@@ -31,6 +31,14 @@ export class UsersService {
 			.map((resp: Response) => resp.json());
 	}
 
+	createGuide(body: {}) {
+		let url = this.apiRoute+'/guia/admin';
+		let opt = this.httpUtil.getOptions();
+
+		return this.authHttp.post(url, body, opt)
+			.map((resp: Response) => resp.json());
+	}
+
 	update(id: number, body: {}) {
 		let url = `${this.apiRoute}/${id}`;
 		let opt = this.httpUtil.getOptions();

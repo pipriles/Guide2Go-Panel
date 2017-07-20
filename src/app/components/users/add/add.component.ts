@@ -25,6 +25,7 @@ export class UsersAddComponent implements OnInit {
 		user_type: null,
 		password: ''
   	};
+  	 
    }
 
   ngOnInit() {}

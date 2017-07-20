@@ -57,9 +57,9 @@ export class GuidesEditComponent implements OnInit {
 		let data = this.data;
 
 		let body = { 
-			costo: this.data.costo,
-			idiomas_id: this.data.idiomas_id,
-			zonas_id: this.data.zonas_id
+			cost: this.data.costo,
+			lang: this.data.idiomas_id,
+			zone: this.data.zonas_id
 		};
 
 		this._serv.update(data.id,body)

@@ -43,9 +43,9 @@ export class GuidesAddComponent implements OnInit {
 		if (data.zonas_id == undefined) return;
 
 		let body = {
-			costo: data.costo,
-			idiomas_id: data.idiomas_id,
-			zonas_id: data.zonas_id
+			cost: data.costo,
+			lang: data.idiomas_id,
+			zone: data.zonas_id
 		};
 
 		/* Create here */

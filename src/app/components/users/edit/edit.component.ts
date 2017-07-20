@@ -1,19 +1,22 @@
 import { Component, ElementRef, Input, Output, EventEmitter, ViewChild, OnInit } from '@angular/core';
 
 import { UsersService } from '../../../services';
+import { GuidesService } from '../../../services';
 
 @Component({
   selector: 'app-users-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
+  providers: [ GuidesService ]
 })
 export class UsersEditComponent implements OnInit {
 
 	@Output() cancel  = new EventEmitter();
 	@Output() request = new EventEmitter(); 
 	data: any;
+	guides: any;
 
-  constructor(private _serv: UsersService) {
+  constructor(private _serv: UsersService, private _guideServ: GuidesService) {
   	this.data = {
 		dolares: 0,
 		email: '',
@@ -21,8 +24,13 @@ export class UsersEditComponent implements OnInit {
 		referer_id: null,
 		user_type: null,
 		password: '',
-		id: null
+		id: null,
+		guide: null
   	};
+  	this._guideServ.get().subscribe(
+        (guide) => {this.guides = guide.guides},
+        (error) => console.log(error)
+      );
    }
 
   ngOnInit() {
@@ -64,6 +72,21 @@ export class UsersEditComponent implements OnInit {
 				(res) => this.request.emit(res),
 				(err) => console.log(err)
 			);
+		if(this.data.guide != null){	
+			let guideCreate = {
+				guia_id: this.data.guide,
+				user_id: this.data.id
+			}
+			this._serv.createGuide(guideCreate).subscribe(
+				(res) => {
+					console.log(res);
+				},
+				(err) => {
+					console.log(err);
+				}
+			);
+		}
+		
 	}
 
 	stopEdit() {
@@ -72,5 +95,10 @@ export class UsersEditComponent implements OnInit {
 
 	changeType(type){
 		this.data.user_type = type;
+	}
+
+	changeGuide(type){
+		console.log(this.guides);
+		this.data.guide = type;
 	}
 }

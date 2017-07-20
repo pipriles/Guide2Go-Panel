@@ -68,6 +68,21 @@
 				required />
 		</md-input-container>
 
+		<md-select 
+			class="form-input" 
+			placeholder="Guias" 
+			[ngModel]="data.guide" 
+	 		(ngModelChange)="changeGuide($event)"
+			name="guide-name">
+
+			<md-option 
+				*ngFor="let guia of guides" 
+				[value]="guia.id"> 
+				{{ guia.name + " " + guia.idioma }}
+			</md-option>
+
+		</md-select>
+
 	</div>
 	<div class="btn-group">
 		<button 
