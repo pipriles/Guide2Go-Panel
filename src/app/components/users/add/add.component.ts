@@ -21,7 +21,7 @@ export class UsersAddComponent implements OnInit {
 		dolares: 0,
 		email: '',
 		name: '',
-		referer_id: null,
+		referer: null,
 		user_type: null,
 		password: ''
   	};
