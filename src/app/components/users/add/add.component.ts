@@ -21,7 +21,7 @@ export class UsersAddComponent implements OnInit {
 		dolares: 0,
 		email: '',
 		name: '',
-		referer: null,
+		referer_id: null,
 		user_type: null,
 		password: ''
   	};
@@ -38,7 +38,7 @@ export class UsersAddComponent implements OnInit {
 		if (!data.user_type) return;
 		let body = {
 			name: this.data.name,
-			referer_id: this.data.referer_id,
+			referer: this.data.referer_id,
 			password: this.data.password,
 			dolares: this.data.dolares,
 			user_types_id: this.data.user_type,

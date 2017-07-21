@@ -26,7 +26,6 @@ export class UsersService {
 	create(body: {}) {
 		let url = this.apiRoute+'/admin';
 		let opt = this.httpUtil.getOptions();
-
 		return this.authHttp.post(url, body, opt)
 			.map((resp: Response) => resp.json());
 	}
